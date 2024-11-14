@@ -78,7 +78,6 @@ useEffect(()=> {
               </div>
         </div>
       </div>
-{/* 3:34:27 */}
       {/* Description and Review Section */}
       <div className='mt-20'>
         <div className='flex '>
