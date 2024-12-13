@@ -11,4 +11,3 @@ const userModel = mongoose.models.user || mongoose.model('user', userSchema)
 
 export default userModel
 
-// time: 5:50:24
