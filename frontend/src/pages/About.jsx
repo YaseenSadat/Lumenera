@@ -1,85 +1,93 @@
-import React from 'react'
-import Title from '../components/Title'
-import NewsletterBox from '../components/NewsletterBox'
-import { assets } from '../assets/assets'
+import React from "react";
+import Title from "../components/Title";
+import NewsletterBox from "../components/NewsletterBox";
+import { assets } from "../assets/assets";
 
 const About = () => {
   return (
     <div>
-      <div className='text-2xl text-center pt-8 border-t'>
-          <Title text1={'ABOUT'} text2={'US'} />
-      </div> 
-
-      <div className='my-10 flex flex-col md:flex-row gap-16'>
-        <img className='w-full md:max-w-[450px]' src={assets.about_img} alt="" />
-        <div className='flex flex-col justify-center gap-6 md:w-2/4 text-gray-600'>
-          <p>At CardMaster Trading Co., we bring together enthusiasts and collectors 
-from around the world to celebrate the timeless joy of card trading. 
-Our mission is to offer a comprehensive platform where individuals can 
-buy, sell, and trade collectible cards across a variety of categories, 
-from sports and gaming to rare vintage sets. With a meticulously curated 
-inventory and partnerships with leading brands, we ensure authenticity 
-and quality in every transaction. Whether you're hunting for that elusive 
-card to complete your collection or exploring the world of trading for the 
-first time, CardMaster Trading Co. is your trusted companion.</p>
-          <p>Our platform combines state-of-the-art technology with a passion for 
-community building. We host online auctions, live trading events, and 
-expert-led workshops to help collectors expand their knowledge and refine 
-their collections. Our grading and valuation services provide peace of mind, 
-ensuring that each card is properly assessed by industry professionals. 
-At CardMaster Trading Co., we're more than a marketplace—we're a thriving 
-community where stories are shared, friendships are forged, and the 
-excitement of discovery never ends.</p>
-        <b className='text-gray-800'>Our Mission</b>
-        <p>At CardMaster Trading Co., our mission is to create a trusted platform 
-where collectors and enthusiasts can buy, sell, and trade cards with ease. 
-We are dedicated to fostering a vibrant community while ensuring 
-authenticity, quality, and a seamless trading experience for all.
-
-Whether you're a seasoned collector or just starting out, our goal is to 
-provide the tools, resources, and connections to help you grow your 
-collection and share your passion with others.</p>
-        </div>
+      <div className="text-2xl text-center pt-8 border-t">
+        <Title text1={"ABOUT"} text2={"US"} />
       </div>
 
-      <div className='text-xl py-4'>
-        <Title text1={'WHY'} text2={'CHOOSE US?'} />
-      </div>
-      <div className='flex flex-col md:flex-row text-sm mb-20'>
-        <div className='border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5'>
-          <b>Quality Assurance:</b>
-          <p className='text-gray-600'>At CardMaster Trading Co., quality assurance is at the heart of everything 
-we do. Every card that passes through our platform undergoes rigorous 
-inspection and verification by industry experts to ensure authenticity and 
-condition. With our commitment to transparency and excellence, you can 
-trade and collect with complete confidence.
+      <div className="my-10 flex flex-col md:flex-row gap-16">
+        <img
+          className="w-full md:max-w-[450px]"
+          src={assets.about_img}
+          alt=""
+        />
+        <div className="flex flex-col justify-center gap-6 md:w-2/4 text-gray-600">
+          <p className="marcellus-regular">
+            At Lumenera, we bring together players and collectors to immerse
+            themselves in a world of strategy, imagination, and adventure. As
+            the creators and sole distributors of our exclusive trading card
+            collections, we’re proud to offer a unique experience inspired by a
+            deep love for dark fantasy and the art of card gaming. Every card is
+            meticulously designed to spark creativity, ignite competition, and
+            tell a story all its own.
           </p>
-        </div>
-        <div className='border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5'>
-          <b>Convenience:</b>
-          <p className='text-gray-600'>At CardMaster Trading Co., quality assurance is at the heart of everything 
-we do. Every card that passes through our platform undergoes rigorous 
-inspection and verification by industry experts to ensure authenticity and 
-condition. With our commitment to transparency and excellence, you can 
-trade and collect with complete confidence.
+          <p className="marcellus-regular">
+            Whether you’re building your ultimate deck, expanding your
+            collection, or exploring the world of card games for the first time,
+            Lumenera is your gateway to a thriving community of enthusiasts. Our
+            commitment to authenticity, quality, and innovation ensures every
+            card is more than just a game piece—it’s a work of art crafted with
+            passion.
           </p>
-        </div>
-        <div className='border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5'>
-          <b>Exceptional Customer Service:</b>
-          <p className='text-gray-600'>At CardMaster Trading Co., quality assurance is at the heart of everything 
-we do. Every card that passes through our platform undergoes rigorous 
-inspection and verification by industry experts to ensure authenticity and 
-condition. With our commitment to transparency and excellence, you can 
-trade and collect with complete confidence.
+          <b className="marcellus-regular text-gray-800">Our Mission</b>
+          <p className="marcellus-regular">
+            At Lumenera, our mission is to create a community-driven platform
+            where players and collectors can come together to celebrate the art
+            and strategy of trading cards. We aim to foster meaningful
+            connections through a shared love of fantasy worlds and creative
+            gameplay. By offering unique designs and captivating stories, we
+            strive to provide a space where players of all levels can connect,
+            compete, and let their imaginations run wild.
           </p>
         </div>
       </div>
 
-      <NewsletterBox/>
+      <div className="text-xl py-4">
+        <Title text1={"WHY"} text2={"CHOOSE US?"} />
+      </div>
+      <div className="flex flex-col md:flex-row text-sm mb-20">
+        <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
+          <b className="marcellus-regular">Craftsmanship:</b>
+          <p className="marcellus-regular text-gray-600">
+            At Lumenera, craftsmanship is at the core of every card we create.
+            Each design is a labor of love, meticulously crafted to embody the
+            rich, dark fantasy worlds that inspire us. From intricate
+            illustrations to compelling narratives, every card is a masterpiece,
+            blending art and gameplay in a way that brings the game to life for
+            players and collectors alike.
+          </p>
+        </div>
+        <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
+          <b className="marcellus-regular">Authenticity:</b>
+          <p className="marcellus-regular text-gray-600">
+            We take pride in offering cards that are 100% authentic and
+            exclusive to Lumenera. As the creators and distributors, we ensure
+            every card is uniquely ours—designed with originality and a passion
+            for the game. When you hold a Lumenera card, you’re holding a piece
+            of a story, a world, and a vision that can’t be found anywhere else.
+          </p>
+        </div>
+        <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
+          <b className="marcellus-regular">Community Connection:</b>
+          <p className="marcellus-regular text-gray-600">
+            Lumenera isn’t just about cards—it’s about the people who play,
+            collect, and connect through them. Our mission is to cultivate a
+            thriving community where players can compete, share strategies, and
+            bond over their shared love for the game. Whether you're battling
+            for glory or expanding your collection, Lumenera is where
+            friendships are forged and stories are shared.
+          </p>
+        </div>
+      </div>
 
-
+      <NewsletterBox />
     </div>
-  )
-}
+  );
+};
 
-export default About
+export default About;
