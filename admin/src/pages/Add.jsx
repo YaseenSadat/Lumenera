@@ -128,8 +128,8 @@ const Add = ({ token }) => {
                             <p className='marcellus-regular w-[100px]'>{rarity}</p>
                             <input
                                 type="number"
-                                value={stock}
-                                onChange={(e) => handleRarityChange(rarity, e.target.value)}
+                                value={stock === 0 ? '' : stock} // Handle the display of '0' as an empty field
+                                onChange={(e) => handleRarityChange(rarity, e.target.value === '' ? 0 : Number(e.target.value))}
                                 className='marcellus-regular border px-3 py-1 w-[120px]'
                                 min="0"
                                 placeholder="Stock"
@@ -138,6 +138,7 @@ const Add = ({ token }) => {
                     ))}
                 </div>
             </div>
+
             <div className='flex items-center gap-2 mt-2'>
                 <input onChange={() => setBestseller(prev => !prev)} checked={bestseller} type="checkbox" id="bestseller" />
                 <label className='marcellus-semibold cursor-pointer' htmlFor="bestseller">Add to bestseller</label>

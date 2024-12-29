@@ -58,24 +58,27 @@ const Product = () => {
             <p className='marcellus-regular'>Select Rarity</p>
             <div className='flex gap-2'>
               {productData.rarities && Object.entries(productData.rarities).map(([rarityKey, stock], index) => (
-                <button
-                  onClick={() => {
-                    setRarity(rarityKey);
-                    const rarityToImageMap = {
-                      Standard: productData.image[0], 
-                      Runed: productData.image[1],   
-                      Sacred: productData.image[2],  
-                      Cursed: productData.image[3],  
-                    };
-                    setImage(rarityToImageMap[rarityKey]);
-                  }}
-                  className={`marcellus-regular border py-2 px-4 ${rarity === rarityKey ? 'border-orange-500' : ''}`}
-                  key={index}
-                >
-                  {rarityKey} (Stock: {stock})
-                </button>
+                stock > 0 ? (  // Only display the button if stock is greater than 0
+                  <button
+                    onClick={() => {
+                      setRarity(rarityKey);
+                      const rarityToImageMap = {
+                        Standard: productData.image[0],
+                        Runed: productData.image[1],
+                        Sacred: productData.image[2],
+                        Cursed: productData.image[3],
+                      };
+                      setImage(rarityToImageMap[rarityKey]);
+                    }}
+                    className={`marcellus-regular text-sm border py-2 px-4 ${rarity === rarityKey ? 'border-orange-500' : ''}`}
+                    key={index}
+                  >
+                    {rarityKey} (Stock: {stock})
+                  </button>
+                ) : null
               ))}
             </div>
+
           </div>
 
 

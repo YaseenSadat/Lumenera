@@ -32,56 +32,58 @@ const PlaceOrder = () => {
   const onSubmitHandler = async (event) => {
     event.preventDefault()
     try {
-      let orderItems = []
+      // Prepare orderItems and orderData
+      let orderItems = [];
       for (const items in cartItems) {
         for (const item in cartItems[items]) {
           if (cartItems[items][item] > 0) {
             const itemInfo = structuredClone(products.find(product => product._id === items))
             if (itemInfo) {
-              itemInfo.rarity = item
-              itemInfo.quantity = cartItems[items][item]
-              orderItems.push(itemInfo)
+              itemInfo.rarity = item;
+              itemInfo.quantity = cartItems[items][item];
+              orderItems.push(itemInfo);
             }
           }
         }
       }
-
+  
       let orderData = {
         address: formData,
         items: orderItems,
         amount: getCartAmount() + service_fee
-      }
-
+      };
+  
       switch (method) {
-
-        // API CALS for COD
         case 'cod':
           const response = await axios.post(backendUrl + '/api/order/place', orderData, { headers: { token } });
           if (response.data.success) {
-            setCartItems({})
-            navigate('/orders')
+            setCartItems({});  // Clear the cart in the context
+            localStorage.removeItem('cart');  // If using localStorage to persist cart data
+            navigate('/orders');
           } else {
-            toast.error(response.data.message)
+            toast.error(response.data.message);
           }
           break;
+  
         case 'stripe':
-          const responseStripe = await axios.post(backendUrl + '/api/order/stripe', orderData, { headers: { token } })
+          const responseStripe = await axios.post(backendUrl + '/api/order/stripe', orderData, { headers: { token } });
           if (responseStripe.data.success) {
-            const { session_url } = responseStripe.data
-            window.location.replace(session_url)
+            const { session_url } = responseStripe.data;
+            window.location.replace(session_url);
           } else {
-            toast.error(responseStripe.data.message)
+            toast.error(responseStripe.data.message);
           }
           break;
+  
         default:
           break;
       }
-
     } catch (error) {
-      console.log(error)
-      toast.error(error.message)
+      console.log(error);
+      toast.error(error.message);
     }
   }
+  
   return (
     <form onSubmit={onSubmitHandler} className='flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t'>
       {/* Left Side */}
