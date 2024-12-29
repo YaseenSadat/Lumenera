@@ -7,7 +7,12 @@ const productSchema = new mongoose.Schema({
     image: {type: Array, required: true},
     category: {type: String, required: true},
     subCategory: {type: String, required: true},
-    rarities: {type: Array, required: true},
+    rarities: {
+        Standard: { type: Number, default: 0 },
+        Runed: { type: Number, default: 0 },
+        Sacred: { type: Number, default: 0 },
+        Cursed: { type: Number, default: 0 },
+      },
     bestseller: {type: Boolean},
     date: {type: Number, required:true},
 })

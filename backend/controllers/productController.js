@@ -20,6 +20,15 @@ const addProduct = async (req,res) => {
             })
         )
 
+        const parsedRarities = JSON.parse(rarities || '{}');
+        const defaultRarities = {
+            Standard: 0,
+            Runed: 0,
+            Sacred: 0,
+            Cursed: 0
+        };
+        const finalRarities = { ...defaultRarities, ...parsedRarities };
+
         const productData = {
             name,
             description,
@@ -27,7 +36,7 @@ const addProduct = async (req,res) => {
             price: Number(price),
             subCategory,
             bestseller: bestseller === "true" ? true : false,
-            rarities: JSON.parse(rarities),
+            rarities: finalRarities,
             image: imagesUrl,
             date: Date.now()
         }
@@ -44,6 +53,7 @@ const addProduct = async (req,res) => {
         res.json({success:false, message:error.message})
     }
 }
+
 
 // Function for list product
 const listProducts = async (req,res) => {

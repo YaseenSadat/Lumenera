@@ -37,46 +37,47 @@ const Product = () => {
         {/* Product Images */}
         <div className='flex-1 flex flex-col-reverse gap-3 sm:flex-row'>
           <div className='flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full'>
-            {
-              productData.image.map((item, index) => (
-                <img onClick={() => setImage(item)} src={item} key={index} className='w-[24%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer' alt="" />
-              ))
-            }
+            {productData.image.map((img, index) => (
+              <img onClick={() => setImage(img)} src={img} key={index} className='w-[24%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer' alt="" />
+            ))}
           </div>
           <div className='w-full sm:w-[80%]'>
             <img className='w-full h-auto' src={image} alt="" />
           </div>
         </div>
 
+
         {/* Product Info */}
         <div className='flex-1'>
           <h1 className='marcellus-regular font-medium text-2x1 mt-2'>{productData.name}</h1>
           <p className='marcellus-regular mt-5 text-3xl font-medium'>{currency}{productData.price}</p>
           <p className='marcellus-regular mt-5 text-gray-500 md:w-4/5'>{productData.description}</p>
+
+          {/* Select Rarity Section */}
           <div className='flex flex-col gap-4 my-8'>
             <p className='marcellus-regular'>Select Rarity</p>
             <div className='flex gap-2'>
-              {productData.rarities.map((item, index) => (
+              {productData.rarities && Object.entries(productData.rarities).map(([rarityKey, stock], index) => (
                 <button
                   onClick={() => {
-                    setRarity(item);
-                    // Map the rarity to its corresponding image
+                    setRarity(rarityKey);
                     const rarityToImageMap = {
-                      Standard: productData.image[0], // image1
-                      Runed: productData.image[1],   // image2
-                      Sacred: productData.image[2],  // image3
-                      Cursed: productData.image[3],  // image4
+                      Standard: productData.image[0], 
+                      Runed: productData.image[1],   
+                      Sacred: productData.image[2],  
+                      Cursed: productData.image[3],  
                     };
-                    setImage(rarityToImageMap[item]);
+                    setImage(rarityToImageMap[rarityKey]);
                   }}
-                  className={`marcellus-regular border py-2 px-4 bg-gray-100 ${item === rarity ? 'border-orange-500' : ''}`}
+                  className={`marcellus-regular border py-2 px-4 ${rarity === rarityKey ? 'border-orange-500' : ''}`}
                   key={index}
                 >
-                  {item}
+                  {rarityKey} (Stock: {stock})
                 </button>
               ))}
             </div>
           </div>
+
 
           {/* Add to Cart Button */}
           <button
@@ -93,6 +94,7 @@ const Product = () => {
             <p className='marcellus-regular'>Meticulously Designed</p>
           </div>
         </div>
+
       </div>
 
       {/* Description */}

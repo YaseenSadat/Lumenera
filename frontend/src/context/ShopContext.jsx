@@ -19,40 +19,54 @@ const ShopContextProvider = (props) => {
 
 
     const addToCart = async (itemId, rarity) => {
-
         if (!rarity) {
-            toast.error('Select Product Rarity')
+            toast.error('Select Product Rarity');
             return;
         }
-
+    
+        // Clone cart data to avoid direct mutation
         let cartData = structuredClone(cartItems);
-
-        if (cartData[itemId]) {
-
-            if (cartData[itemId][rarity]) {
-                cartData[itemId][rarity] += 1;
-            }
-            else{
-                cartData[itemId][rarity] = 1;
-            }  
+    
+        // Find the product data for the given itemId
+        const productData = products.find(product => product._id === itemId);
+    
+        if (!productData) {
+            toast.error("Product not found");
+            return;
         }
-        else{
+    
+        // Get available stock for the selected rarity
+        const availableStock = productData.rarities[rarity];
+    
+        // Check if the item is already in the cart
+        if (cartData[itemId]) {
+            // Check if there is enough stock to increase the quantity
+            if (cartData[itemId][rarity] + 1 <= availableStock) {
+                cartData[itemId][rarity] += 1; // Increment the quantity by 1
+            } else {
+                toast.error("Insufficient stock for this product.");
+                return;
+            }
+        } else {
+            // If the item is not in the cart, initialize it with quantity 1
             cartData[itemId] = {};
             cartData[itemId][rarity] = 1;
         }
+    
+        // Update the cart state with the new data
         setCartItems(cartData);
-
+    
+        // If there's a valid token, send the request to the backend
         if (token) {
             try {
-                
-                await axios.post(backendUrl + '/api/cart/add', {itemId, rarity}, {headers:{token}})
-
+                await axios.post(backendUrl + '/api/cart/add', { itemId, rarity }, { headers: { token } });
             } catch (error) {
                 console.log(error);
-                toast.error(error.message)
+                toast.error(error.message);
             }
         }
-    }
+    };
+    
 
     const getCartCount =() => {
         let totalCount = 0;

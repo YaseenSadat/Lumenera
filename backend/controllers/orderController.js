@@ -1,6 +1,7 @@
 import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
 import Stripe from 'stripe'
+import productModel from "../models/productModel.js";
 
 // global variables
 const currency = 'CAD'
@@ -10,37 +11,50 @@ const serviceCharge = 1
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 // placing orders using cash on del.
-const placeOrder = async (req,res) => {
+const placeOrder = async (req, res) => {
     try {
-        const {userId, items, amount, address} = req.body;
-        const orderData = {
-            userId,
-            items,
-            address,
-            amount,
-            paymentMethod: "COD",
-            payment: false,
-            date: Date.now()
+        const { userId, items, amount, address } = req.body;
+
+        // Check stock for each item in the order
+        for (const item of items) {
+            const productData = await productModel.findById(item._id);
+
+            if (!productData) {
+                return res.json({ success: false, message: `Product with ID ${item._id} not found.` });
+            }
+
+            if (productData.rarities[item.rarity] < item.quantity) {
+                return res.json({ success: false, message: `Not enough stock for ${productData.name} (${item.rarity}).` });
+            }
         }
 
-        const newOrder = new orderModel(orderData)
-        await newOrder.save()
+        // Deduct stock from each item in the order
+        for (const item of items) {
+            const productData = await productModel.findById(item._id);
+            if (productData) {
+                productData.rarities[item.rarity] -= item.quantity;
+                await productData.save();
+            }
+        }
 
-        await userModel.findByIdAndUpdate(userId, {cardData:{}})
-        res.json({success: true, message: "Order Placed"})
+        // Save the order to the database
+        const orderData = { userId, items, address, amount, paymentMethod: "COD", payment: false, date: Date.now() };
+        const newOrder = new orderModel(orderData);
+        await newOrder.save();
 
+        res.json({ success: true, message: "Order placed and stock updated." });
     } catch (error) {
         console.log(error);
-        res.json({success: false, message: error.message})
+        res.json({ success: false, message: error.message });
     }
-}
+};
 
-// placing orders using stripe
-const placeOrderStripe = async (req,res) => {
+
+const placeOrderStripe = async (req, res) => {
     try {
-        const {userId, items, amount, address} = req.body;
-        const {origin} = req.headers;
-        
+        const { userId, items, amount, address } = req.body;
+        const { origin } = req.headers;
+
         const orderData = {
             userId,
             items,
@@ -51,64 +65,82 @@ const placeOrderStripe = async (req,res) => {
             date: Date.now()
         }
 
-        const newOrder = new orderModel(orderData)
-        await newOrder.save()
+        // Create a new order in the database
+        const newOrder = new orderModel(orderData);
+        await newOrder.save();
 
-        const line_items = items.map((item)=>({
+        // Prepare the line items for Stripe
+        const line_items = items.map((item) => ({
             price_data: {
-                currency: currency,
+                currency: 'CAD',
                 product_data: {
                     name: item.name
                 },
                 unit_amount: item.price * 100
             },
             quantity: item.quantity
-        }))
+        }));
 
-        line_items.push({
-            price_data: {
-                currency: currency,
-                product_data: {
-                    name: 'Delivery Fee'
-                },
-                unit_amount: serviceCharge * 100
-            },
-            quantity: 1
-        })
-
+        // Create a Stripe session
         const session = await stripe.checkout.sessions.create({
-            success_url: `${origin}/verify?success=true&orderId=${newOrder._id}`,
-            cancel_url: `${origin}/verify?success=false&orderId=${newOrder._id}`,
-            line_items,
+            payment_method_types: ['card'],
+            line_items: line_items,
             mode: 'payment',
-        })
-        
-        res.json({success:true, session_url:session.url})
+            success_url: `${origin}/success?orderId=${newOrder._id}`,
+            cancel_url: `${origin}/cancel?orderId=${newOrder._id}`,
+        });
+
+        res.json({ success: true, session_url: session.url });
 
     } catch (error) {
         console.log(error);
-        res.json({success: false, message: error.message})  
+        res.json({ success: false, message: error.message });
     }
 }
 
-// Verify Stripe
-const verifyStripe = async (req,res) => {
-    const {orderId, success, userId} = req.body
-    
+const verifyStripe = async (req, res) => {
+    const { orderId, success, userId } = req.body;
+
     try {
         if (success === true || success === "true") {
-            await orderModel.findByIdAndUpdate(orderId, {payment:true});
-            await userModel.findByIdAndUpdate(userId, {cartData: {}})
-            res.json({success:true});
+            // Mark the order as paid
+            const order = await orderModel.findByIdAndUpdate(orderId, { payment: true }, { new: true });
+
+            // Check if the order exists
+            if (!order) {
+                return res.json({ success: false, message: "Order not found" });
+            }
+
+            // Optionally, log the order to confirm the payment
+            console.log("Order updated to payment status:", order);
+
+            // Clear the user's cart after successful payment
+            await userModel.findByIdAndUpdate(userId, { cartData: {} });
+
+            // Deduct stock from each item in the order
+            const items = order.items;
+            for (const item of items) {
+                const productData = await productModel.findById(item._id);
+                
+                if (productData) {
+                    productData.rarities[item.rarity] -= item.quantity;
+                    await productData.save();
+                }
+            }
+
+            res.json({ success: true });
         } else {
-            await orderModel.findByIdAndDelete(orderId)
-            res.json({success:false})
+            // If payment failed, delete the order
+            await orderModel.findByIdAndDelete(orderId);
+            res.json({ success: false });
         }
     } catch (error) {
         console.log(error);
-        res.json({success: false, message: error.message})  
+        res.json({ success: false, message: error.message });
     }
 }
+
+
 
 //  All orders data for admin panel
 const allOrders = async (req,res) => {
