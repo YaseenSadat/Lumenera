@@ -1,5 +1,6 @@
 import React from "react";
 import { assets } from "../assets/assets";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
     return (
@@ -20,17 +21,25 @@ const Footer = () => {
                 </div>
 
                 <div>
-                    <p className="marcellus-regular text-xl font-bold mb-5">COMPANY</p>
+                    <p className="marcellus-bold text-xl font-bold mb-5">COMPANY</p>
                     <ul className="flex flex-col gap-1 text-gray-600">
-                        <li className="marcellus-regular">Home</li>
-                        <li className="marcellus-regular">About Us</li>
-                        <li className="marcellus-regular">Delivery</li>
-                        <li className="marcellus-regular">Privacy Policy</li>
+                        <li className="marcellus-regular">
+                            <NavLink to="/" className="hover:text-black">Home</NavLink>
+                        </li>
+                        <li className="marcellus-regular">
+                            <NavLink to="/collection" className="hover:text-black">Collection</NavLink>
+                        </li>
+                        <li className="marcellus-regular">
+                            <NavLink to="/about" className="hover:text-black">About Us</NavLink>
+                        </li>
+                        <li className="marcellus-regular">
+                            <NavLink to="/contact" className="hover:text-black">Contact</NavLink>
+                        </li>
                     </ul>
                 </div>
 
                 <div>
-                    <p className="marcellus-regular text-xl font-bold mb-5">GET IN TOUCH</p>
+                    <p className="marcellus-bold text-xl font-bold mb-5">GET IN TOUCH</p>
                     <ul className="flex flex-col gap-1 text-gray-600">
                         <li className="marcellus-regular">+1-437-484-7007</li>
                         <li className="marcellus-regular">yaseensadat2@gmail.com</li>

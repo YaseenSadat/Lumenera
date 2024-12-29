@@ -15,18 +15,18 @@ const Product = () => {
 
     products.map((item) => {
       if (item._id === productId) {
-        setProductData(item)
-        setImage(item.image[0])
+        setProductData(item);
+        setImage(item.image[0]);
         setRarity('Standard');
         return null;
       }
-    })
+    });
 
   }
 
   useEffect(() => {
     fetchProductData();
-  }, [productId, products])
+  }, [productId, products]);
 
   return productData ? (
     <div className='border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100'>
@@ -69,8 +69,7 @@ const Product = () => {
                     };
                     setImage(rarityToImageMap[item]);
                   }}
-                  className={`marcellus-regular border py-2 px-4 bg-gray-100 ${item === rarity ? 'border-orange-500' : ''
-                    }`}
+                  className={`marcellus-regular border py-2 px-4 bg-gray-100 ${item === rarity ? 'border-orange-500' : ''}`}
                   key={index}
                 >
                   {item}
@@ -79,9 +78,24 @@ const Product = () => {
             </div>
           </div>
 
+          {/* Add to Cart Button */}
+          <button
+            onClick={() => addToCart(productData._id, rarity)}
+            className='marcellus-regular bg-black text-white px-8 py-3 text-sm active:bg-gray-700'>
+            ADD TO CART
+          </button>
+
+          {/* Additional Info */}
+          <hr className='mt-8 sm:w-4/5' />
+          <div className='text-sm text-gray-500 mt-5 flex flex-col gap-1'>
+            <p className='marcellus-regular'>100% Authentic Cards</p>
+            <p className='marcellus-regular'>Fast and Secure Delivery</p>
+            <p className='marcellus-regular'>Meticulously Designed</p>
+          </div>
         </div>
       </div>
-      {/* Description*/}
+
+      {/* Description */}
       <div className='mt-20'>
         <div className='flex '>
           <b className='marcellus-regular border px-5 py-3 text-md'>Overview</b>
@@ -99,4 +113,4 @@ const Product = () => {
   ) : <div className='opacity-0'></div>
 }
 
-export default Product
+export default Product;

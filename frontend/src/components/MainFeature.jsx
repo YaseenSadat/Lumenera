@@ -9,11 +9,11 @@ const MainFeature = () => {
             <div className='text-[#414141]'>
                 <div className='flex items-center gap-2'>
                     <p className='w-8 md:w-11 h-[2px] bg-[#414141]'></p>
-                    <p className='marcellus-regular font-bold text-sm md:text-base'>OUR BESTSELLERS</p>
+                    <p className='marcellus-bold font-bold text-sm md:text-base'>OUR BESTSELLERS</p>
                 </div>
-                <h1 className='marcellus-regular text-3x1 sm:py-3 lg:text-5xl leading-relaxed'>Latest Arrivals</h1>
+                <h1 className='marcellus-bold text-3x1 sm:py-3 lg:text-5xl leading-relaxed'>Latest Arrivals</h1>
                 <div className='flex items-center gap-2'>
-                    <p className='marcellus-regular font-bold text-sm md:text-base'>SHOP NOW</p>
+                    <p className='marcellus-bold font-bold text-sm md:text-base'>SHOP NOW</p>
                     <p className='w-8 md:w-11 h-[2px] bg-[#414141]'></p>
                 </div>
             </div> 

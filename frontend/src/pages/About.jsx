@@ -34,7 +34,7 @@ const About = () => {
             card is more than just a game piece—it’s a work of art crafted with
             passion.
           </p>
-          <b className="marcellus-regular text-gray-800">Our Mission</b>
+          <b className="marcellus-bold text-gray-800">Our Mission</b>
           <p className="marcellus-regular">
             At Lumenera, our mission is to create a community-driven platform
             where players and collectors can come together to celebrate the art
@@ -52,7 +52,7 @@ const About = () => {
       </div>
       <div className="flex flex-col md:flex-row text-sm mb-20">
         <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
-          <b className="marcellus-regular">Craftsmanship:</b>
+          <b className="marcellus-bold">Craftsmanship:</b>
           <p className="marcellus-regular text-gray-600">
             At Lumenera, craftsmanship is at the core of every card we create.
             Each design is a labor of love, meticulously crafted to embody the
@@ -63,7 +63,7 @@ const About = () => {
           </p>
         </div>
         <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
-          <b className="marcellus-regular">Authenticity:</b>
+          <b className="marcellus-bold">Authenticity:</b>
           <p className="marcellus-regular text-gray-600">
             We take pride in offering cards that are 100% authentic and
             exclusive to Lumenera. As the creators and distributors, we ensure
@@ -73,7 +73,7 @@ const About = () => {
           </p>
         </div>
         <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
-          <b className="marcellus-regular">Community Connection:</b>
+          <b className="marcellus-bold">Community Connection:</b>
           <p className="marcellus-regular text-gray-600">
             Lumenera isn’t just about cards—it’s about the people who play,
             collect, and connect through them. Our mission is to cultivate a

@@ -25,19 +25,19 @@ const logout = () => {
         <ul className= 'hidden sm:flex gap-5 text-sm text-gray-700'>
 
             <NavLink to='/' className='flex flex-col items-center gap-1'>
-                <p className='marcellus-regular font-extrabold text-lg'>HOME</p>
+                <p className='marcellus-bold font-extrabold'>HOME</p>
                 <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
             </NavLink>
             <NavLink to='/collection' className='flex flex-col items-center gap-1'>
-                <p className='marcellus-regular font-extrabold text-lg'>COLLECTION</p>
+                <p className='marcellus-bold font-extrabold'>COLLECTION</p>
                 <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
             </NavLink>
             <NavLink to='/about' className='flex flex-col items-center gap-1'>
-                <p className='marcellus-regular font-extrabold text-lg'>ABOUT</p>
+                <p className='marcellus-bold font-extrabold'>ABOUT</p>
                 <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
             </NavLink>
             <NavLink to='/contact' className='flex flex-col items-center gap-1'>
-                <p className='marcellus-regular font-extrabold text-lg'>CONTACT</p>
+                <p className='marcellus-bold font-extrabold'>CONTACT</p>
                 <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
             </NavLink>
 

@@ -104,6 +104,7 @@ const PlaceOrder = () => {
           <input required onChange={onChangeHandler} name='country' value={formData.country} className='marcellus-regular border border-gray-300 rounded py-1.5 px-3.5 w-full' type="text" placeholder='Country' />
         </div>
         <input required onChange={onChangeHandler} name='phone' value={formData.phone} className='marcellus-regular border border-gray-300 rounded py-1.5 px-3.5 w-full' type="text" placeholder='Phone Number' />
+        <p className='marcellus-regular text-xs text-gray-500 mt-1'>* Please provide a valid email address as it will be where the product is sent. *</p>
       </div>
 
       {/* Right Side */}
