@@ -20,24 +20,24 @@ const logout = () => {
   return (
     <div className='flex items-center justify-between py-5 font-medium'>
         
-        <Link to='/'><img src={assets.newlogo} className="w-44 h-auto" alt="" /></Link>
+        <Link to='/'><img src={assets.new_logo} className="w-44 h-auto" alt="" /></Link>
 
         <ul className= 'hidden sm:flex gap-5 text-sm text-gray-700'>
 
             <NavLink to='/' className='flex flex-col items-center gap-1'>
-                <p>HOME</p>
+                <p className='marcellus-regular font-extrabold'>HOME</p>
                 <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
             </NavLink>
             <NavLink to='/collection' className='flex flex-col items-center gap-1'>
-                <p>COLLECTION</p>
+                <p className='marcellus-regular font-extrabold'>COLLECTION</p>
                 <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
             </NavLink>
             <NavLink to='/about' className='flex flex-col items-center gap-1'>
-                <p>ABOUT</p>
+                <p className='marcellus-regular font-extrabold'>ABOUT</p>
                 <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
             </NavLink>
             <NavLink to='/contact' className='flex flex-col items-center gap-1'>
-                <p>CONTACT</p>
+                <p className='marcellus-regular font-extrabold'>CONTACT</p>
                 <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
             </NavLink>
 
