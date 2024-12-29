@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext';
-import { assets } from '../assets/assets';
 import RelatedProducts from '../components/RelatedProducts';
 
 const Product = () => {
@@ -50,43 +49,34 @@ useEffect(()=> {
 
         {/* Product Info */}
         <div className='flex-1'>
-              <h1 className='font-medium text-2x1 mt-2'>{productData.name}</h1>
-              <div className='flex items-center gap-1 mt-2'>
-                <img src={assets.star_icon} alt="" className="w-3 5" />
-                <img src={assets.star_icon} alt="" className="w-3 5" />
-                <img src={assets.star_icon} alt="" className="w-3 5" />
-                <img src={assets.star_icon} alt="" className="w-3 5" />
-                <img src={assets.star_dull_icon} alt="" className="w-3 5" />
-                <p className='pl-2'>(122)</p>
-              </div>
-              <p className='mt-5 text-3xl font-medium'>{currency}{productData.price}</p>
-              <p className='mt-5 text-gray-500 md:w-4/5'>{productData.description}</p>
+              <h1 className='marcellus-regular font-medium text-2x1 mt-2'>{productData.name}</h1>
+              <p className='marcellus-regular mt-5 text-3xl font-medium'>{currency}{productData.price}</p>
+              <p className='marcellus-regular mt-5 text-gray-500 md:w-4/5'>{productData.description}</p>
               <div className='flex flex-col gap-4 my-8'>
-                <p>Select Size</p>
+                <p className='marcellus-regular'>Select Rarity</p>
                 <div className='flex gap-2'>
                   {productData.sizes.map((item,index)=>(
-                    <button onClick={()=>setSize(item)} className={`border py-2 px-4 bg-gray-100 ${item === size ? 'border-orange-500' : ''}`} key={index}>{item}</button>
+                    <button onClick={()=>setSize(item)} className={`marcellus-regular border py-2 px-4 bg-gray-100 ${item === size ? 'border-orange-500' : ''}`} key={index}>{item}</button>
                   ))}
                 </div>
               </div>
-              <button onClick={()=>addToCart(productData._id, size)} className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700'>ADD TO CART</button>
+              <button onClick={()=>addToCart(productData._id, size)} className='marcellus-regular bg-black text-white px-8 py-3 text-sm active:bg-gray-700'>ADD TO CART</button>
               <hr className='mt-8 sm:w-4/5'/>
               <div className='text-sm text-gray-500 mt-5 flex flex-col gap-1'>
-                <p>100& Original Product</p>
-                <p>Cash on Delivery is Available</p>
-                <p>Easy return and exchange policy is available within 7 days</p>
+                <p className='marcellus-regular'>100% Authentic Cards</p>
+                <p className='marcellus-regular'>Fast and Secure Delivery</p>
+                <p className='marcellus-regular'>Meticulously Designed</p>
               </div>
         </div>
       </div>
-      {/* Description and Review Section */}
+      {/* Description*/}
       <div className='mt-20'>
         <div className='flex '>
-          <b className='border px-5 py-3 text-sm'>Description</b>
-          <p className='border px-5 py-3 text-sm'>Reviews (122)</p>
+          <b className='marcellus-regular border px-5 py-3 text-md'>Overview</b>
         </div>
         <div className='flex flex-col gap-4 border px-6 py-6 text-sm text-gray-600'>
-          <p>At Shopease, we are committed to crafting clothing that blends quality with ethical practices. Our garments are designed with care, using responsibly sourced materials and sustainable methods to reduce our environmental footprint.</p>
-          <p> Each piece is carefully processed to ensure durability, comfort, and style, meeting high standards for both quality and sustainability. From concept to final stitch, we strive to create fashion that you can feel good about, knowing it was made with respect for people and the planet.</p>
+          <p>Every Lumenera card is designed to ignite your imagination and elevate your strategy. With exquisite detail and unmatched authenticity, this card is ready to shine in your collection or game.</p>
+          <p></p>
         </div>
       </div>
 
