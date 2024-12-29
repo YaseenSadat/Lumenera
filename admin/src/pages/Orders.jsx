@@ -44,7 +44,7 @@ const Orders = ({ token }) => {
 
   return (
     <div>
-      <h3>Order Page</h3>
+      <h3 className='marcellus-bold'>Order Page</h3>
       <div>
         {
           orders.map((order, index) => (
@@ -60,25 +60,24 @@ const Orders = ({ token }) => {
                     }
                   })}
                 </div>
-                <p className='mt-3 mb-2 font-medium'>{order.address.firstName + " " + order.address.lastName}</p>
+                <p className='marcellus-semibold mt-3 mb-2'>{order.address.firstName + " " + order.address.lastName}</p>
+                <p className='marcellus-semibold mt-3 mb-2'>{order.address.email}</p>
                 <div>
-                  <p>{order.address.address + ","}</p>
-                  <p>{order.address.city + ", " + order.address.province + ", " + order.address.country + ", " + order.address.postalCode}</p>
+                  <p className='marcellus-regular'>{order.address.address + ","}</p>
+                  <p className='marcellus-regular'>{order.address.city + ", " + order.address.province + ", " + order.address.country + ", " + order.address.postalCode}</p>
                 </div>
-                <p>{order.address.phone}</p>
+                <p className='marcellus-regular'>{order.address.phone}</p>
               </div>
               <div>
-                <p className='text-sm sm:text-[15px]'>Items: {order.items.length}</p>
-                <p className='mt-3'>Payment Method: {order.paymentMethod}</p>
+                <p className='marcellus-bold text-sm sm:text-[15px]'>Items: {order.items.length}</p>
+                <p className='marcellus-regular mt-3'>Payment Method: {order.paymentMethod}</p>
                 <p>Payment: {order.payment ? 'Done' :  'Pending'}</p>
                 <p>Date: {new Date(order.date).toLocaleDateString()}</p>
               </div>
-              <p className='text-sm sm:text-[15px]'>{currency}{order.amount}</p>
-              <select onChange={(event)=>statusHandler(event,order._id)} value={order.status} className='p-2 font-semibold'>
+              <p className='marcellus-bold text-sm sm:text-[15px]'>{currency}{order.amount}</p>
+              <select onChange={(event)=>statusHandler(event,order._id)} value={order.status} className='marcellus-regular p-2'>
                 <option value="Order Placed">Order Placed</option>
-                <option value="Packing">Packing</option>
-                <option value="Shipped">Shipped</option>
-                <option value="Out for Delivery">Out for Delivery</option>
+                <option value="Finalizing">Finalizing</option>
                 <option value="Delivered">Delivered</option>
               </select>
             </div>

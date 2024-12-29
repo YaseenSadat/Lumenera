@@ -19,6 +19,18 @@ select,input,textarea{
   font-style: normal;
 }
 
+.marcellus-semibold {
+  font-family: "Marcellus", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.marcellus-bold {
+  font-family: "Marcellus", serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
 .active{
   background-color: #ffebf5;
   border-color: #C586A5;

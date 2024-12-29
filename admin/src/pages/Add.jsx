@@ -63,7 +63,7 @@ const Add = ({token}) => {
   return (
     <form onSubmit={onSubmitHandler} className='flex flex-col w-full items-start gap-3'>
         <div>
-            <p className='mb-2'>Upload Image</p>
+            <p className='marcellus-semibold mb-2'>Upload Image</p>
 
             <div className='flex gap-2'>
                 <label htmlFor="image1">
@@ -85,25 +85,25 @@ const Add = ({token}) => {
             </div>
         </div>
         <div className='w-full'>
-            <p className='mb-2'>Product Name</p>
-            <input onChange={(e)=>setName(e.target.value)} value={name} className='w-full max-w-[500px] px-3 py-2' type="text" placeholder='Type here' required />
+            <p className='marcellus-semibold mb-2'>Product Name</p>
+            <input onChange={(e)=>setName(e.target.value)} value={name} className='marcellus-regular w-full max-w-[500px] px-3 py-2' type="text" placeholder='Type here' required />
         </div>
         <div className='w-full'>
-            <p className='mb-2'>Product Description</p>
-            <textarea onChange={(e)=>setDescription(e.target.value)} value={description} className='w-full max-w-[500px] px-3 py-2' type="text" placeholder='Write content here' required />
+            <p className='marcellus-semibold mb-2'>Product Description</p>
+            <textarea onChange={(e)=>setDescription(e.target.value)} value={description} className='marcellus-regular w-full max-w-[500px] px-3 py-2' type="text" placeholder='Write content here' required />
         </div>
         <div className='flex flex-col sm:flex-row gap-2 w-full sm:gap-8'>
             <div>
-                <p className='mb-2'>Product Category</p>
-                <select onChange={(e)=>setCategory(e.target.value)} className='w-full px-3 py-2'>
+                <p className='marcellus-semibold mb-2'>Product Tier</p>
+                <select onChange={(e)=>setCategory(e.target.value)} className='marcellus-regular w-full px-3 py-2'>
                     <option value="Bronze">Bronze</option>
                     <option value="Silver">Silver</option>
                     <option value="Gold">Gold</option>
                 </select>
             </div>
             <div>
-                <p className='mb-2'>Sub Category</p>
-                <select onChange={(e)=>setSubCategory(e.target.value)} className='w-full px-3 py-2'>
+                <p className='marcellus-semibold mb-2'>Product Type</p>
+                <select onChange={(e)=>setSubCategory(e.target.value)} className='marcellus-regular w-full px-3 py-2'>
                     <option value="Item">Item</option>
                     <option value="Human">Human</option>
                     <option value="Monster">Monster</option>
@@ -113,33 +113,33 @@ const Add = ({token}) => {
                 </select>
             </div>
             <div>
-                <p className='mb-2'>Product Price</p>
-                <input onChange={(e)=>setPrice(e.target.value)} value={price} className='w-full px-3 py-2 sm:w-[120px]' type="Number" placeholder='5' />
+                <p className='marcellus-semibold mb-2'>Product Price</p>
+                <input onChange={(e)=>setPrice(e.target.value)} value={price} className='marcellus-regular w-full px-3 py-2 sm:w-[120px]' type="Number" placeholder='9.99' />
             </div>
         </div>
         <div className='mb-2'>
-            <p className='mb-2'>Product Rarities</p>
+            <p className='marcellus-semibold mb-2'>Product Rarities</p>
             <div className='flex gap-3'>
                 <div onClick={()=>setRarities(prev => prev.includes("Standard") ? prev.filter(item => item !== "Standard") : [...prev,"Standard"])} >
-                    <p className={`${rarities.includes("Standard") ? "bg-black text-white" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Standard</p>
+                    <p className={`${rarities.includes("Standard") ? "marcellus-regular bg-black text-white" : "marcellus-regular bg-slate-200"} px-3 py-1 cursor-pointer`}>Standard</p>
                 </div>
                 <div onClick={()=>setRarities(prev => prev.includes("Runed") ? prev.filter(item => item !== "Runed") : [...prev,"Runed"])} >
-                    <p className={`${rarities.includes("Runed") ? "bg-black text-white" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Runed</p>
+                    <p className={`${rarities.includes("Runed") ? "marcellus-regular bg-black text-white" : "marcellus-regular bg-slate-200"} px-3 py-1 cursor-pointer`}>Runed</p>
                 </div>
                 <div onClick={()=>setRarities(prev => prev.includes("Sacred") ? prev.filter(item => item !== "Sacred") : [...prev,"Sacred"])} >
-                    <p className={`${rarities.includes("Sacred") ? "bg-black text-white" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Sacred</p>
+                    <p className={`${rarities.includes("Sacred") ? "marcellus-regular bg-black text-white" : "marcellus-regular bg-slate-200"} px-3 py-1 cursor-pointer`}>Sacred</p>
                 </div>
                 <div onClick={()=>setRarities(prev => prev.includes("Cursed") ? prev.filter(item => item !== "Cursed") : [...prev,"Cursed"])} >
-                    <p className={`${rarities.includes("Cursed") ? "bg-black text-white" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Cursed</p>
+                    <p className={`${rarities.includes("Cursed") ? "marcellus-regular bg-black text-white" : "marcellus-regular bg-slate-200"} px-3 py-1 cursor-pointer`}>Cursed</p>
                 </div>   
             </div>
         </div>
 
         <div className='flex items-center gap-2 mt-2'>
             <input onChange={()=> setBestseller(prev => !prev)} checked={bestseller} type="checkbox" id="bestseller" />
-            <label className='cursor-pointer' htmlFor="bestseller">Add to bestseller</label>
+            <label className='marcellus-semibold cursor-pointer' htmlFor="bestseller">Add to bestseller</label>
         </div>
-        <button type='submit' className='w-28 py-3 mt-4 bg-black text-white'>ADD</button>
+        <button type='submit' className='marcellus-semibold w-28 py-3 mt-4 bg-black text-white'>ADD</button>
     </form>
 
   )
