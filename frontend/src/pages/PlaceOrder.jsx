@@ -90,20 +90,20 @@ const PlaceOrder = () => {
           <Title text1={'DELIVERY'} text2={'INFORMATION'} />
         </div>
         <div className='flex gap-3'>
-          <input required onChange={onChangeHandler} name='firstName' value={formData.firstName} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type="text" placeholder='First name' />
-          <input required onChange={onChangeHandler} name='lastName' value={formData.lastName} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type="text" placeholder='Last name' />
+          <input required onChange={onChangeHandler} name='firstName' value={formData.firstName} className='marcellus-regular border border-gray-300 rounded py-1.5 px-3.5 w-full' type="text" placeholder='First name' />
+          <input required onChange={onChangeHandler} name='lastName' value={formData.lastName} className='marcellus-regular border border-gray-300 rounded py-1.5 px-3.5 w-full' type="text" placeholder='Last name' />
         </div>
-        <input required onChange={onChangeHandler} name='email' value={formData.email} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type="email" placeholder='Email' />
-        <input required onChange={onChangeHandler} name='address' value={formData.address} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type="text" placeholder='Address' />
+        <input required onChange={onChangeHandler} name='email' value={formData.email} className='marcellus-regular border border-gray-300 rounded py-1.5 px-3.5 w-full' type="email" placeholder='Email' />
+        <input required onChange={onChangeHandler} name='address' value={formData.address} className='marcellus-regular border border-gray-300 rounded py-1.5 px-3.5 w-full' type="text" placeholder='Address' />
         <div className='flex gap-3'>
-          <input required onChange={onChangeHandler} name='city' value={formData.city} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type="text" placeholder='City' />
-          <input required onChange={onChangeHandler} name='province' value={formData.province} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type="text" placeholder='Province' />
+          <input required onChange={onChangeHandler} name='city' value={formData.city} className='marcellus-regular border border-gray-300 rounded py-1.5 px-3.5 w-full' type="text" placeholder='City' />
+          <input required onChange={onChangeHandler} name='province' value={formData.province} className='marcellus-regular border border-gray-300 rounded py-1.5 px-3.5 w-full' type="text" placeholder='Province' />
         </div>
         <div className='flex gap-3'>
-          <input required onChange={onChangeHandler} name='postalCode' value={formData.postalCode} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type="number" placeholder='Postal Code' />
-          <input required onChange={onChangeHandler} name='country' value={formData.country} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type="text" placeholder='Country' />
+          <input required onChange={onChangeHandler} name='postalCode' value={formData.postalCode} className='marcellus-regular border border-gray-300 rounded py-1.5 px-3.5 w-full' type="text" placeholder='Postal Code/Zipcode' />
+          <input required onChange={onChangeHandler} name='country' value={formData.country} className='marcellus-regular border border-gray-300 rounded py-1.5 px-3.5 w-full' type="text" placeholder='Country' />
         </div>
-        <input required onChange={onChangeHandler} name='phone' value={formData.phone} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type="number" placeholder='Phone Number' />
+        <input required onChange={onChangeHandler} name='phone' value={formData.phone} className='marcellus-regular border border-gray-300 rounded py-1.5 px-3.5 w-full' type="text" placeholder='Phone Number' />
       </div>
 
       {/* Right Side */}
@@ -121,12 +121,11 @@ const PlaceOrder = () => {
             </div>
             <div onClick={() => setMethod('cod')} className='flex items-center gap-3 border p-2 px-3 cursor-pointer'>
               <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'cod' ? 'bg-green-400' : ''}`}></p>
-              <p className='text-gray-500 text-sm font-medium mx-4'>Cash on Delivery</p>
+              <p className='marcellus-regular text-gray-500 text-sm font-medium mx-4'>Cash on Delivery</p>
             </div>
           </div>
-
           <div className='w-full text-end mt-8'>
-            <button type='submit' className='bg-black text-white px-16 py-3 text-sm'>PLACE ORDER</button>
+            <button type='submit' className='marcellus-regular bg-black text-white px-16 py-3 text-sm'>PLACE ORDER</button>
           </div>
         </div>
       </div>

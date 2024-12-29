@@ -13,6 +13,12 @@ select,input,textarea{
   border-radius: 4px;
 }
 
+.marcellus-regular {
+  font-family: "Marcellus", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .active{
   background-color: #ffebf5;
   border-color: #C586A5;

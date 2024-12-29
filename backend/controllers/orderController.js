@@ -4,7 +4,7 @@ import Stripe from 'stripe'
 
 // global variables
 const currency = 'CAD'
-const deliveryCharge = 10
+const serviceCharge = 1
 
 // gateway init
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
@@ -71,7 +71,7 @@ const placeOrderStripe = async (req,res) => {
                 product_data: {
                     name: 'Delivery Fee'
                 },
-                unit_amount: deliveryCharge * 100
+                unit_amount: serviceCharge * 100
             },
             quantity: 1
         })
