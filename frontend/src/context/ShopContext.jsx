@@ -18,10 +18,10 @@ const ShopContextProvider = (props) => {
     const navigate = useNavigate();
 
 
-    const addToCart = async (itemId, size) => {
+    const addToCart = async (itemId, rarity) => {
 
-        if (!size) {
-            toast.error('Select Product Size')
+        if (!rarity) {
+            toast.error('Select Product Rarity')
             return;
         }
 
@@ -29,23 +29,23 @@ const ShopContextProvider = (props) => {
 
         if (cartData[itemId]) {
 
-            if (cartData[itemId][size]) {
-                cartData[itemId][size] += 1;
+            if (cartData[itemId][rarity]) {
+                cartData[itemId][rarity] += 1;
             }
             else{
-                cartData[itemId][size] = 1;
+                cartData[itemId][rarity] = 1;
             }  
         }
         else{
             cartData[itemId] = {};
-            cartData[itemId][size] = 1;
+            cartData[itemId][rarity] = 1;
         }
         setCartItems(cartData);
 
         if (token) {
             try {
                 
-                await axios.post(backendUrl + '/api/cart/add', {itemId, size}, {headers:{token}})
+                await axios.post(backendUrl + '/api/cart/add', {itemId, rarity}, {headers:{token}})
 
             } catch (error) {
                 console.log(error);
@@ -70,17 +70,17 @@ const ShopContextProvider = (props) => {
         return totalCount;
     }
 
-    const updateQuantity = async (itemId, size, quantity) => {
+    const updateQuantity = async (itemId, rarity, quantity) => {
         let cartData = structuredClone(cartItems); 
 
-        cartData[itemId][size] = quantity;
+        cartData[itemId][rarity] = quantity;
 
         setCartItems(cartData);
 
         if (token) {
             try {
 
-                await axios.post(backendUrl + '/api/cart/update', {itemId, size, quantity}, {headers:{token}})
+                await axios.post(backendUrl + '/api/cart/update', {itemId, rarity, quantity}, {headers:{token}})
 
             } catch (error) {
                 console.log(error);
@@ -95,10 +95,10 @@ const ShopContextProvider = (props) => {
         for (const itemId in cartItems) {
             const itemInfo = products.find((product) => product._id === itemId); 
             if (itemInfo) {
-                for (const size in cartItems[itemId]) {
+                for (const rarity in cartItems[itemId]) {
                     try {
-                        if (cartItems[itemId][size] > 0) {
-                            totalAmount += itemInfo.price * cartItems[itemId][size];
+                        if (cartItems[itemId][rarity] > 0) {
+                            totalAmount += itemInfo.price * cartItems[itemId][rarity];
                         }
                     } catch (error) {
                         console.error("Error calculating cart amount:", error);

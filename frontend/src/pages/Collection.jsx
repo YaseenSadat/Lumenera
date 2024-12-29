@@ -89,19 +89,19 @@ const Collection = () => {
         </p>
         {/* Category Filter */}
         <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
-          <p className='marcellus-regular mb-3 text-sm font-medium'>CATEGORIES</p>
+          <p className='marcellus-regular mb-3 text-sm font-medium'>Tiers</p>
           <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
             <p className='marcellus-regular flex items-center gap-2'> 
-              <input className='w-3' type="checkbox" value={"Men"} onChange={toggleCategory} />
-              Men
+              <input className='w-3' type="checkbox" value={"Bronze"} onChange={toggleCategory} />
+              Bronze
             </p>
             <p className='marcellus-regular flex items-center gap-2'> 
-              <input className='w-3' type="checkbox" value={"Women"} onChange={toggleCategory} />
-              Women
+              <input className='w-3' type="checkbox" value={"Silver"} onChange={toggleCategory} />
+              Silver
             </p>
             <p className='marcellus-regular flex items-center gap-2'> 
-              <input className='w-3' type="checkbox" value={"Kids"} onChange={toggleCategory} />
-              Kids
+              <input className='w-3' type="checkbox" value={"Gold"} onChange={toggleCategory} />
+              Gold
             </p>
           </div>
         </div>
@@ -111,16 +111,24 @@ const Collection = () => {
           <p className='marcellus-regular mb-3 text-sm font-medium'>TYPE</p>
           <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
             <p className='marcellus-regular flex items-center gap-2'> 
-              <input className='w-3' type="checkbox" value={'Topwear'} onChange={toggleSubCategory} />
-              Topwear
+              <input className='w-3' type="checkbox" value={'Item'} onChange={toggleSubCategory} />
+              Item
             </p>
             <p className='marcellus-regular flex items-center gap-2'> 
-              <input className='w-3' type="checkbox" value={'Bottomwear'} onChange={toggleSubCategory} />
-              Bottomwear
+              <input className='w-3' type="checkbox" value={'Human'} onChange={toggleSubCategory} />
+              Human
             </p>
             <p className='marcellus-regular flex items-center gap-2'> 
-              <input className='w-3' type="checkbox" value={'Winterwear'} onChange={toggleSubCategory} />
-              Winterwear
+              <input className='w-3' type="checkbox" value={'Monster'} onChange={toggleSubCategory} />
+              Monster
+            </p>
+            <p className='marcellus-regular flex items-center gap-2'> 
+              <input className='w-3' type="checkbox" value={'Spirit'} onChange={toggleSubCategory} />
+              Spirit
+            </p>
+            <p className='marcellus-regular flex items-center gap-2'> 
+              <input className='w-3' type="checkbox" value={'Dragon'} onChange={toggleSubCategory} />
+              Dragon
             </p>
           </div>
         </div>
@@ -133,9 +141,9 @@ const Collection = () => {
           <Title text1={'ALL'} text2={'COLLECTIONS'} />
           {/* Product Sort */}
           <select onChange={(e) => setSortType(e.target.value)} className='marcellus-regular border-2 border-gray-300 text-sm px-2'>
-            <option value="relavance">Sort by: Relavance</option>
-            <option value="low-high">Sort by: Low-High</option>
-            <option value="high-low">Sort by: High-Low</option>
+            <option value="relavance">Relavance</option>
+            <option value="low-high">Price: Low-High</option>
+            <option value="high-low">Price: High-Low</option>
           </select>
         </div>
         {/* Map Products */}

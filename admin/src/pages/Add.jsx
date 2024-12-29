@@ -14,10 +14,10 @@ const Add = ({token}) => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
-    const [category, setCategory] = useState("Men");
-    const [subCategory, setSubCategory] = useState("Topwear");
+    const [category, setCategory] = useState("Bronze");
+    const [subCategory, setSubCategory] = useState("Human");
     const [bestseller, setBestseller] = useState(false);
-    const [sizes, setSizes] = useState([]);
+    const [rarities, setRarities] = useState([]);
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
@@ -31,7 +31,7 @@ const Add = ({token}) => {
             formData.append("category",category)
             formData.append("subCategory",subCategory)
             formData.append("bestseller",bestseller)
-            formData.append("sizes",JSON.stringify(sizes))
+            formData.append("rarities",JSON.stringify(rarities))
             
             image1 && formData.append("image1",image1)
             image2 && formData.append("image2",image2)
@@ -96,17 +96,20 @@ const Add = ({token}) => {
             <div>
                 <p className='mb-2'>Product Category</p>
                 <select onChange={(e)=>setCategory(e.target.value)} className='w-full px-3 py-2'>
-                    <option value="Men">Men</option>
-                    <option value="Women">Women</option>
-                    <option value="Kids">Kids</option>
+                    <option value="Bronze">Bronze</option>
+                    <option value="Silver">Silver</option>
+                    <option value="Gold">Gold</option>
                 </select>
             </div>
             <div>
                 <p className='mb-2'>Sub Category</p>
                 <select onChange={(e)=>setSubCategory(e.target.value)} className='w-full px-3 py-2'>
-                    <option value="Topwear">Topwear</option>
-                    <option value="Bottomwear">Bottomwear</option>
-                    <option value="Winterwear">Winterwear</option>
+                    <option value="Item">Item</option>
+                    <option value="Human">Human</option>
+                    <option value="Monster">Monster</option>
+                    <option value="Spirit">Spirit</option>
+                    <option value="Dragon">Dragon</option>
+
                 </select>
             </div>
             <div>
@@ -115,23 +118,20 @@ const Add = ({token}) => {
             </div>
         </div>
         <div className='mb-2'>
-            <p className='mb-2'>Product Sizes</p>
+            <p className='mb-2'>Product Rarities</p>
             <div className='flex gap-3'>
-                <div onClick={()=>setSizes(prev => prev.includes("S") ? prev.filter(item => item !== "S") : [...prev,"S"])} >
-                    <p className={`${sizes.includes("S") ? "bg-black text-white" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>S</p>
+                <div onClick={()=>setRarities(prev => prev.includes("Standard") ? prev.filter(item => item !== "Standard") : [...prev,"Standard"])} >
+                    <p className={`${rarities.includes("Standard") ? "bg-black text-white" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Standard</p>
                 </div>
-                <div onClick={()=>setSizes(prev => prev.includes("M") ? prev.filter(item => item !== "M") : [...prev,"M"])} >
-                    <p className={`${sizes.includes("M") ? "bg-black text-white" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>M</p>
+                <div onClick={()=>setRarities(prev => prev.includes("Runed") ? prev.filter(item => item !== "Runed") : [...prev,"Runed"])} >
+                    <p className={`${rarities.includes("Runed") ? "bg-black text-white" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Runed</p>
                 </div>
-                <div onClick={()=>setSizes(prev => prev.includes("L") ? prev.filter(item => item !== "L") : [...prev,"L"])} >
-                    <p className={`${sizes.includes("L") ? "bg-black text-white" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>L</p>
+                <div onClick={()=>setRarities(prev => prev.includes("Sacred") ? prev.filter(item => item !== "Sacred") : [...prev,"Sacred"])} >
+                    <p className={`${rarities.includes("Sacred") ? "bg-black text-white" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Sacred</p>
                 </div>
-                <div onClick={()=>setSizes(prev => prev.includes("XL") ? prev.filter(item => item !== "XL") : [...prev,"XL"])} >
-                    <p className={`${sizes.includes("XL") ? "bg-black text-white" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>XL</p>
-                </div>
-                <div onClick={()=>setSizes(prev => prev.includes("XXL") ? prev.filter(item => item !== "XXL") : [...prev,"XXL"])} >
-                    <p className={`${sizes.includes("XXL") ? "bg-black text-white" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>XXL</p>
-                </div>
+                <div onClick={()=>setRarities(prev => prev.includes("Cursed") ? prev.filter(item => item !== "Cursed") : [...prev,"Cursed"])} >
+                    <p className={`${rarities.includes("Cursed") ? "bg-black text-white" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Cursed</p>
+                </div>   
             </div>
         </div>
 
