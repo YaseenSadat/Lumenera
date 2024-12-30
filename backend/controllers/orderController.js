@@ -86,8 +86,8 @@ const placeOrderStripe = async (req, res) => {
             payment_method_types: ['card'],
             line_items: line_items,
             mode: 'payment',
-            success_url: `${origin}/success?orderId=${newOrder._id}`,
-            cancel_url: `${origin}/cancel?orderId=${newOrder._id}`,
+            success_url: `${origin}/verify?success=true&orderId=${newOrder._id}`,
+            cancel_url: `${origin}/verify?success=false&orderId=${newOrder._id}`,
         });
 
         res.json({ success: true, session_url: session.url });
@@ -100,40 +100,16 @@ const placeOrderStripe = async (req, res) => {
 
 const verifyStripe = async (req, res) => {
     const { orderId, success, userId } = req.body;
-
     try {
-        if (success === true || success === "true") {
-            // Mark the order as paid
-            const order = await orderModel.findByIdAndUpdate(orderId, { payment: true }, { new: true });
-
-            // Check if the order exists
-            if (!order) {
-                return res.json({ success: false, message: "Order not found" });
-            }
-
-            // Optionally, log the order to confirm the payment
-            console.log("Order updated to payment status:", order);
-
-            // Clear the user's cart after successful payment
-            await userModel.findByIdAndUpdate(userId, { cartData: {} });
-
-            // Deduct stock from each item in the order
-            const items = order.items;
-            for (const item of items) {
-                const productData = await productModel.findById(item._id);
-                
-                if (productData) {
-                    productData.rarities[item.rarity] -= item.quantity;
-                    await productData.save();
-                }
-            }
-
-            res.json({ success: true });
-        } else {
-            // If payment failed, delete the order
-            await orderModel.findByIdAndDelete(orderId);
-            res.json({ success: false });
+        if (success === "true" || success === "true") {
+            await orderModel.findByIdAndUpdate(orderId, {payment:true});
+            await userModel.findByIdAndUpdate(userId, {cartData: {}})
+            res.json({success:true});
+        } else{
+            await orderModel.findByIdAndDelete(orderId)
+            res.json({success:false})
         }
+
     } catch (error) {
         console.log(error);
         res.json({ success: false, message: error.message });

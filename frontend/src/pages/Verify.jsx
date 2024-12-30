@@ -16,13 +16,16 @@ const Verify = () => {
             if (!token) {
                 return null
             }
+            console.log("VERIFYING PAYMENT");
             const response = await axios.post(backendUrl + '/api/order/verifyStripe', {success, orderId}, {headers: {token}})
             if (response.data.success) {
-                setCartItems({})
-                navigate('/orders')
-            } else{
-                navigate('/cart')
-            }
+                console.log("SUCCESS");
+                setCartItems({});
+                navigate('/orders'); // Ensure you redirect here after success
+            } else {
+                console.log("FAIL");
+                navigate('/cart');
+            }            
         } catch (error) {
             console.log(error);
             toast.error(error.message)
