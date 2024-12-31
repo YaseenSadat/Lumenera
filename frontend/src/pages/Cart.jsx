@@ -31,6 +31,12 @@ const Cart = () => {
   }, [cartItems, products])
 
   const handleCheckout = () => {
+
+    if (cartData.length === 0) {
+      toast.error('Your cart is empty.');
+      return;
+    }
+
     // Check if the cart quantity exceeds stock
     for (const item of cartData) {
       const productData = products.find((product) => product._id === item._id);
