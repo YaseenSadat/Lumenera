@@ -7,7 +7,7 @@ import userRouter from './routes/userRoute.js'
 import productRouter from './routes/productRoute.js'
 import cartRouter from './routes/cartRoute.js'
 import orderRouter from './routes/orderRoute.js'
-import emailRouter from './routes/emailRoute.js';
+import emailRouter from "./routes/emailRoute.js";
 
 // App Config
 const app = express()

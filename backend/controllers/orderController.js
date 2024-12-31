@@ -2,6 +2,7 @@ import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
 import Stripe from 'stripe'
 import productModel from "../models/productModel.js";
+import { sendPurchaseEmail } from "../controllers/emailController.js";
 
 // gateway init
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
@@ -116,7 +117,47 @@ const verifyStripe = async (req, res) => {
             // Update the order to mark it as paid
             await orderModel.findByIdAndUpdate(orderId, { payment: true });
             await userModel.findByIdAndUpdate(userId, { cartData: {} });
-            
+
+            // Trigger the email
+            console.log(order);
+
+            // Prepare product names and the correct images based on rarity
+            const productNames = order.items.map(item => `<strong>${item.name}</strong>`).join(", ");
+            const productImages = order.items.map(item => {
+                let selectedImage;
+                switch (item.rarity) {
+                    case "Standard":
+                        selectedImage = item.image[0];
+                        break;
+                    case "Runed":
+                        selectedImage = item.image[1];
+                        break;
+                    case "Sacred":
+                        selectedImage = item.image[2];
+                        break;
+                    case "Cursed":
+                        selectedImage = item.image[3];
+                        break;
+                    default:
+                        selectedImage = ""; // Fallback in case rarity is not recognized
+                }
+                return `<img src="${selectedImage}" alt="${item.name}" style="max-width: 200px; margin: 5px;">`;
+            }).join("");
+
+            // Trigger the email
+            await sendPurchaseEmail(
+                {
+                    body: {
+                        email: order.address.email,
+                        productNames,
+                        productImages // Pass the selected image based on rarity
+                    }
+                },
+                {
+                    status: () => ({ json: console.log }) // Simulated response object
+                }
+            );
+
             res.json({ success: true });
         } else {
             // Delete the order if payment failed
@@ -133,38 +174,38 @@ const verifyStripe = async (req, res) => {
 
 
 //  All orders data for admin panel
-const allOrders = async (req,res) => {
+const allOrders = async (req, res) => {
     try {
         const orders = await orderModel.find({})
-        res.json({success:true, orders})
+        res.json({ success: true, orders })
     } catch (error) {
         console.log(error);
-        res.json({success: false, message: error.message}) 
+        res.json({ success: false, message: error.message })
     }
 }
 
 // User order data for frontend
-const userOrders = async (req,res) => {
+const userOrders = async (req, res) => {
     try {
-        const {userId} = req.body
-        const orders = await orderModel.find({userId})
-        res.json({success:true,orders})
+        const { userId } = req.body
+        const orders = await orderModel.find({ userId })
+        res.json({ success: true, orders })
     } catch (error) {
         console.log(error);
-        res.json({success: false, message: error.message}) 
+        res.json({ success: false, message: error.message })
     }
 }
 
 // update order status from admin panel 
-const updateStatus = async (req,res) => {
+const updateStatus = async (req, res) => {
     try {
-        const {orderId, status} = req.body
-        await orderModel.findByIdAndUpdate(orderId, {status})
-        res.json({success:true, message:'Status Updated'})
+        const { orderId, status } = req.body
+        await orderModel.findByIdAndUpdate(orderId, { status })
+        res.json({ success: true, message: 'Status Updated' })
     } catch (error) {
         console.log(error);
-        res.json({success: false, message: error.message}) 
+        res.json({ success: false, message: error.message })
     }
 }
 
-export {verifyStripe, placeOrder, placeOrderStripe, allOrders, userOrders, updateStatus}
+export { verifyStripe, placeOrder, placeOrderStripe, allOrders, userOrders, updateStatus }
