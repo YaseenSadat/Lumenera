@@ -14,7 +14,7 @@ const Contact = () => {
         <img className='w-full md:max-w-[480px]' src={assets.contact_img} alt="" />
         <div className='flex flex-col justify-center items-start gap-6'>
           <p className='marcellus-regular font-bold text-xl text-gray-600'>Contact</p>
-          <p className='marcellus-regular text-gray-500'>Tel: (437) 484-7007 <br /> Email: yaseensadat2@gmail.com</p>
+          <p className='marcellus-regular text-gray-500'>Tel: (437) 484-7007 <br /> Email: lumeneracards@gmail.com</p>
         </div>
       </div>
 
