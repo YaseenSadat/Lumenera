@@ -101,20 +101,38 @@ const placeOrderStripe = async (req, res) => {
 const verifyStripe = async (req, res) => {
     const { orderId, success, userId } = req.body;
     try {
-        if (success === "true" || success === "true") {
-            await orderModel.findByIdAndUpdate(orderId, {payment:true});
-            await userModel.findByIdAndUpdate(userId, {cartData: {}})
-            res.json({success:true});
-        } else{
-            await orderModel.findByIdAndDelete(orderId)
-            res.json({success:false})
-        }
+        if (success === "true") {
+            const order = await orderModel.findById(orderId);
 
+            if (!order) {
+                return res.json({ success: false, message: 'Order not found' });
+            }
+
+            // Deduct stock for each item in the order
+            for (const item of order.items) {
+                const productData = await productModel.findById(item._id);
+                if (productData) {
+                    productData.rarities[item.rarity] -= item.quantity;
+                    await productData.save();
+                }
+            }
+
+            // Update the order to mark it as paid
+            await orderModel.findByIdAndUpdate(orderId, { payment: true });
+            await userModel.findByIdAndUpdate(userId, { cartData: {} });
+            
+            res.json({ success: true });
+        } else {
+            // Delete the order if payment failed
+            await orderModel.findByIdAndDelete(orderId);
+            res.json({ success: false });
+        }
     } catch (error) {
         console.log(error);
         res.json({ success: false, message: error.message });
     }
-}
+};
+
 
 
 
