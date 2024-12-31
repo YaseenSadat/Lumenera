@@ -14,6 +14,7 @@ const productSchema = new mongoose.Schema({
         Cursed: { type: Number, default: 0 },
       },
     bestseller: {type: Boolean},
+    latestCollection: {type: Boolean},
     date: {type: Number, required:true},
 })
 

@@ -17,6 +17,7 @@ const Add = ({ token }) => {
     const [category, setCategory] = useState("Bronze");
     const [subCategory, setSubCategory] = useState("Human");
     const [bestseller, setBestseller] = useState(false);
+    const [latestCollection, setLatestCollection] = useState(false);
     const [rarities, setRarities] = useState({
         Standard: 0,
         Runed: 0,
@@ -36,6 +37,7 @@ const Add = ({ token }) => {
             formData.append("category", category)
             formData.append("subCategory", subCategory)
             formData.append("bestseller", bestseller)
+            formData.append("latestCollection", latestCollection)
             formData.append("rarities", JSON.stringify(rarities))
 
             image1 && formData.append("image1", image1)
@@ -139,10 +141,17 @@ const Add = ({ token }) => {
                 </div>
             </div>
 
-            <div className='flex items-center gap-2 mt-2'>
-                <input onChange={() => setBestseller(prev => !prev)} checked={bestseller} type="checkbox" id="bestseller" />
-                <label className='marcellus-semibold cursor-pointer' htmlFor="bestseller">Add to bestseller</label>
+            <div className='flex flex-col gap-2 mt-2'>
+                <div className='flex items-center gap-2'>
+                    <input onChange={() => setBestseller(prev => !prev)} checked={bestseller} type="checkbox" id="bestseller" />
+                    <label className='marcellus-semibold cursor-pointer' htmlFor="bestseller">Add to Bestseller</label>
+                </div>
+                <div className='flex items-center gap-2 mt-2'>
+                    <input onChange={() => setLatestCollection(prev => !prev)} checked={latestCollection} type="checkbox" id="latestCollection" />
+                    <label className='marcellus-semibold cursor-pointer' htmlFor="latestCollection">Add to Latest Collection</label>
+                </div>
             </div>
+
             <button type='submit' className='marcellus-semibold w-28 py-3 mt-4 bg-black text-white'>ADD</button>
         </form>
     )
