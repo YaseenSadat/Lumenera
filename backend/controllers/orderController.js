@@ -3,10 +3,6 @@ import userModel from "../models/userModel.js";
 import Stripe from 'stripe'
 import productModel from "../models/productModel.js";
 
-// global variables
-const currency = 'CAD'
-const serviceCharge = 1
-
 // gateway init
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
