@@ -62,6 +62,8 @@ const placeOrderStripe = async (req, res) => {
             date: Date.now()
         }
 
+        const serviceFee = amount * 0.15;
+
         // Create a new order in the database
         const newOrder = new orderModel(orderData);
         await newOrder.save();
@@ -77,6 +79,18 @@ const placeOrderStripe = async (req, res) => {
             },
             quantity: item.quantity
         }));
+
+         // Add a line item for the service fee
+         line_items.push({
+            price_data: {
+                currency: 'CAD',
+                product_data: {
+                    name: 'Service Fee'
+                },
+                unit_amount: Math.round(serviceFee * 100) 
+            },
+            quantity: 1
+        });
 
         // Create a Stripe session
         const session = await stripe.checkout.sessions.create({
