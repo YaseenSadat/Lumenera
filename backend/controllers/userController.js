@@ -2,6 +2,8 @@ import userModel from "../models/userModel.js";
 import validator from  "validator";
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken'
+import User from '../models/userModel.js';
+
 
 const createToken = (id) =>{
     return jwt.sign({id}, process.env.JWT_SECRET)
@@ -92,5 +94,35 @@ const adminLogin = async (req,res) => {
         
     }
 }
+
+export const resetPassword = async (req, res) => {
+    const { token, newPassword } = req.body;
+  
+    try {
+      // Find the user with the reset token and ensure it's not expired
+      const user = await User.findOne({
+        resetToken: token,
+        resetTokenExpiry: { $gt: Date.now() }, // Check token expiry
+      });
+  
+      if (!user) {
+        return res.status(400).json({ success: false, message: 'Invalid or expired token.' });
+      }
+  
+      // Hash the new password
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+  
+      // Update the user's password and clear the reset token
+      user.password = hashedPassword;
+      user.resetToken = undefined;
+      user.resetTokenExpiry = undefined;
+      await user.save();
+  
+      return res.status(200).json({ success: true, message: 'Password reset successfully.' });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ success: false, message: 'An error occurred while resetting the password.' });
+    }
+  };
 
 export {loginUser, registerUser, adminLogin}

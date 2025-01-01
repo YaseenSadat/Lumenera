@@ -14,6 +14,8 @@ import Footer from './components/Footer'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Verify from './pages/Verify'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 
 
 const App = () => {
@@ -22,6 +24,8 @@ const App = () => {
       <ToastContainer />
       <Navbar />
         <Routes>
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path='/' element={<Home/>} />
           <Route path='/collection' element={<Collection/>} />
           <Route path='/about' element={<About/>} />

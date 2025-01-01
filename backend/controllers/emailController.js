@@ -1,5 +1,6 @@
 import { sendEmail } from '../config/emailService.js';
-
+import crypto from 'crypto';
+import User from '../models/userModel.js';
 
 export const sendPurchaseEmail = async (req, res) => {
     const { email, productNames, productImages } = req.body;
@@ -59,3 +60,38 @@ export const sendSubscriptionEmail = async (req, res) => {
         res.status(500).json({ error: 'Failed to send subscription email.', details: error.message });
     }
 };
+
+export const sendForgotPasswordEmail = async (req, res) => {
+    const { email } = req.body;
+  
+    try {
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(404).json({ success: false, message: 'User not found' });
+      }
+  
+      // Generate a secure random token
+      const resetToken = crypto.randomBytes(32).toString('hex');
+      const resetTokenExpiry = Date.now() + 3600000; // Token valid for 1 hour
+  
+      // Save token and expiry in the user document
+      user.resetToken = resetToken;
+      user.resetTokenExpiry = resetTokenExpiry;
+      await user.save();
+  
+      // Generate reset link
+      const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
+  
+      // Email content
+      const subject = 'Password Reset Request';
+      const text = `You requested a password reset. Click the link below to reset your password:\n\n${resetLink}\n\nThis link is valid for 1 hour.`;
+  
+      // Send email
+      await sendEmail(email, subject, text);
+  
+      return res.status(200).json({ success: true, message: 'Password reset email sent.' });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ success: false, message: 'An error occurred while sending the email.' });
+    }
+  };
