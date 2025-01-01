@@ -7,8 +7,6 @@ import authenticity_icon from './authenticity_icon.png'
 import profile_icon from './profile_icon.png'
 import shield_icon from './shield_icon.png'
 import search_icon from './search_icon.png'
-import star_dull_icon from './star_dull_icon.png'
-import star_icon from './star_icon.png'
 import fast_shipping_icon from './fast_shipping_icon.png'
 import menu_icon from './menu_icon.png'
 import about_img from './about_img.png'
@@ -25,8 +23,6 @@ export const assets = {
     profile_icon,
     shield_icon,
     search_icon,
-    star_dull_icon,
-    star_icon,
     bin_icon,
     fast_shipping_icon,
     menu_icon,
