@@ -50,15 +50,24 @@ const Product = () => {
         {/* Product Info */}
         <div className='flex-1'>
           <h1 className='marcellus-regular font-medium text-2x1 mt-2'>{productData.name}</h1>
-          <p className='marcellus-regular mt-5 text-3xl font-medium'>{currency}{productData.price}</p>
+          <p className='marcellus-regular mt-5 text-3xl font-medium'>{currency}{productData.price.toFixed(2)}</p>
           <p className='marcellus-regular mt-5 text-gray-500 md:w-4/5'>{productData.description}</p>
 
           {/* Select Rarity Section */}
           <div className='flex flex-col gap-4 my-8'>
             <p className='marcellus-regular'>Select Rarity</p>
             <div className='flex gap-2'>
-              {productData.rarities && Object.entries(productData.rarities).map(([rarityKey, stock], index) => (
-                stock > 0 ? (  // Only display the button if stock is greater than 0
+              {productData.rarities && Object.entries(productData.rarities).map(([rarityKey, stock], index) => {
+                const displayRarities = {
+                  Gold: ['Standard', 'Runed', 'Sacred', 'Cursed'],
+                  Silver: ['Standard', 'Runed'],
+                  Bronze: ['Standard'],
+                };
+
+                // Check if the current rarity should be displayed based on the product category
+                if (!displayRarities[productData.category].includes(rarityKey)) return null;
+
+                return (
                   <button
                     onClick={() => {
                       setRarity(rarityKey);
@@ -75,12 +84,10 @@ const Product = () => {
                   >
                     {rarityKey} (Stock: {stock})
                   </button>
-                ) : null
-              ))}
+                );
+              })}
             </div>
-
           </div>
-
 
           {/* Add to Cart Button */}
           <button

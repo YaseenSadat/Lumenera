@@ -83,7 +83,7 @@ const Login = () => {
         onChange={(e) => setEmail(e.target.value)}
         value={email}
         type="email"
-        className='marcellus-regular marcellus-regular w-full px-3 py-2 border border-gray-800'
+        className='marcellus-regular w-full px-3 py-2 border border-gray-800'
         placeholder='Email'
         required
       />

@@ -79,21 +79,21 @@ const registerUser = async (req,res) => {
     }
 }
 
-// Route for admin login
-const adminLogin = async (req,res) => {
+const adminLogin = async (req, res) => {
     try {
-        const {email,password} = req.body
+        const { email, password } = req.body;
         if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
-            const token = jwt.sign(email+password, process.env.JWT_SECRET);
-            res.json({success:"true",token})
-        }
-        else{
-            res.json({success:"FALSE", message:"INVALID CREDENTIALS"})
+            const token = jwt.sign(email + password, process.env.JWT_SECRET);
+            return res.json({ success: true, token, isAdmin: true }); // Include isAdmin flag
+        } else {
+            return res.json({ success: false, message: "INVALID CREDENTIALS" });
         }
     } catch (error) {
-        
+        console.error(error);
+        res.status(500).json({ success: false, message: "Server Error" });
     }
-}
+};
+
 
 export const resetPassword = async (req, res) => {
     const { token, newPassword } = req.body;

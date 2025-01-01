@@ -52,7 +52,7 @@ const Orders = () => {
                 <div>
                   <p className='marcellus-bold sm:text-base font-medium'>{item.name}</p>
                   <div className='flex items-center gap-3 mt-1 text-base text-gray-700'>
-                    <p className='marcellus-regular'>{currency}{item.price}</p>
+                    <p className='marcellus-regular'>{currency}{item.price.toFixed(2)}</p>
                     <p className='marcellus-regular'>Quantity: {item.quantity}</p>
                     <p className='marcellus-regular'>Rarity: {item.rarity}</p>
                   </div>
