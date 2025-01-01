@@ -24,16 +24,16 @@ const Footer = () => {
                     <p className="marcellus-bold text-xl font-bold mb-5">COMPANY</p>
                     <ul className="flex flex-col gap-1 text-gray-600">
                         <li className="marcellus-regular">
-                            <NavLink to="/" className="hover:text-black">Home</NavLink>
+                            <NavLink to="/" className="marcellus-regular hover:text-black">Home</NavLink>
                         </li>
                         <li className="marcellus-regular">
-                            <NavLink to="/collection" className="hover:text-black">Collection</NavLink>
+                            <NavLink to="/collection" className="marcellus-regular hover:text-black">Collection</NavLink>
                         </li>
                         <li className="marcellus-regular">
-                            <NavLink to="/about" className="hover:text-black">About Us</NavLink>
+                            <NavLink to="/about" className="marcellus-regular hover:text-black">About Us</NavLink>
                         </li>
                         <li className="marcellus-regular">
-                            <NavLink to="/contact" className="hover:text-black">Contact</NavLink>
+                            <NavLink to="/contact" className="marcellus-regular hover:text-black">Contact</NavLink>
                         </li>
                     </ul>
                 </div>

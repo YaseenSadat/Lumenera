@@ -45,7 +45,7 @@ const Login = () => {
       if (!email || !/\S+@\S+\.\S+/.test(email)) {
         return toast.error('Please enter a valid email address.');
       }
-      
+
       const response = await axios.post(backendUrl + '/api/email/forgot-password', { email });
       if (response.data.success) {
         toast.success('Password reset email sent!');
@@ -66,7 +66,7 @@ const Login = () => {
   return (
     <form onSubmit={onSubmitHandler} className='flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-800'>
       <div className='inline-flex items-center gap-2 mb-2 mt-10'>
-        <p className='prata-regular text-3xl'>{currentState}</p>
+        <p className='marcellus-regular text-3xl'>{currentState}</p>
         <hr className='border-none h-[1.5px] w-8 bg-gray-800' />
       </div>
       {currentState === 'Login' ? '' : (
@@ -74,7 +74,7 @@ const Login = () => {
           onChange={(e) => setName(e.target.value)}
           value={name}
           type="text"
-          className='w-full px-3 py-2 border border-gray-800'
+          className='marcellus-regular w-full px-3 py-2 border border-gray-800'
           placeholder='Name'
           required
         />
@@ -83,7 +83,7 @@ const Login = () => {
         onChange={(e) => setEmail(e.target.value)}
         value={email}
         type="email"
-        className='w-full px-3 py-2 border border-gray-800'
+        className='marcellus-regular marcellus-regular w-full px-3 py-2 border border-gray-800'
         placeholder='Email'
         required
       />
@@ -91,21 +91,21 @@ const Login = () => {
         onChange={(e) => setPassword(e.target.value)}
         value={password}
         type="password"
-        className='w-full px-3 py-2 border border-gray-800'
+        className='marcellus-regular w-full px-3 py-2 border border-gray-800'
         placeholder='Password'
         required
       />
-      <div className='w-full flex justify-between text-sm mt-[8px]'>
+      <div className='marcellus-regular w-full flex justify-between text-sm mt-[8px]'>
         {currentState === 'Login' && (
-          <p className='cursor-pointer' onClick={handleForgotPassword}>Forgot your password?</p>
+          <p className='marcellus-regular cursor-pointer' onClick={handleForgotPassword}>Forgot your password?</p>
         )}
         {currentState === 'Login' ? (
-          <p onClick={() => setCurrentState('Sign Up')} className='cursor-pointer'>Create account</p>
+          <p onClick={() => setCurrentState('Sign Up')} className='marcellus-regular cursor-pointer'>Create account</p>
         ) : (
-          <p onClick={() => setCurrentState('Login')} className='cursor-pointer'>Already have account</p>
+          <p onClick={() => setCurrentState('Login')} className='marcellus-regular cursor-pointer'>Already have account</p>
         )}
       </div>
-      <button className='bg-black text-white font-light px-8 py-2 mt-4'>
+      <button className='marcellus-regular bg-black text-white font-light px-8 py-2 mt-4'>
         {currentState === 'Login' ? 'Login' : 'Sign up'}
       </button>
     </form>
