@@ -13,20 +13,24 @@ RUN npm install
 # Step 5: Copy the rest of the application files
 COPY . .
 
-# Step 6: Build the Vite app for production
+# Step 6: Set the build argument for the backend URL
+ARG VITE_BACKEND_URL
+ENV VITE_BACKEND_URL=${VITE_BACKEND_URL}
+
+# Step 7: Build the Vite app for production
 RUN npm run build
 
-# Step 7: Use a lightweight server to serve the built files
+# Step 8: Use a lightweight server to serve the built files
 FROM nginx:alpine
 
-# Step 8: Copy the dist folder (Vite's build output) to Nginx's default directory
+# Step 9: Copy the dist folder (Vite's build output) to Nginx's default directory
 COPY --from=build /usr/src/app/dist /usr/share/nginx/html
 
-# Step 9: Copy the custom Nginx configuration
+# Step 10: Copy the custom Nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Step 10: Expose the frontend port (5173)
-EXPOSE 5173
+# Step 11: Expose the frontend port (80 for Nginx)
+EXPOSE 80
 
-# Step 11: Start Nginx
+# Step 12: Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
