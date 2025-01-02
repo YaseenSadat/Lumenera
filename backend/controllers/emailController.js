@@ -14,7 +14,8 @@ import User from '../models/userModel.js'; // User model for interacting with th
 
 /**
  * Sends a purchase confirmation email to the user with product details.
- * 
+ * Includes repeated images for each product quantity and updated product names.
+ *
  * @param {Object} req - The request object containing email, productNames, and productImages.
  * @param {Object} res - The response object to send the operation result.
  */
@@ -30,14 +31,14 @@ export const sendPurchaseEmail = async (req, res) => {
             email,
             `DELIVERED: Your Lumenera Cards`,
             `<p>Esteemed Seeker,</p>
-       <p>We extend our deepest gratitude for venturing into the realm of <strong>Lumenera</strong> and acquiring the following treasures:</p>
-       <p>${productNames}</p>
-       <p>Here are the artifacts you have claimed:</p>
-       <div>${productImages}</div>
-       <p>May these treasures inspire you, as they have inspired those who dared to dream of the extraordinary.</p>
-       <p>Guard them well, for such power is not to be taken lightly.</p>
-       <p>Should you seek further wonders, know that the gates of Lumenera remain ever open to the brave and curious.</p>
-       <p>With the utmost regard,<br>The Lumenera Custodians</p>`
+            <p>We extend our deepest gratitude for venturing into the realm of <strong>Lumenera</strong> and acquiring the following treasures:</p>
+            <p>${productNames}</p>
+            <p>Here are the artifacts you have claimed:</p>
+            <div>${productImages}</div>
+            <p>May these treasures inspire you, as they have inspired those who dared to dream of the extraordinary.</p>
+            <p>Guard them well, for such power is not to be taken lightly.</p>
+            <p>Should you seek further wonders, know that the gates of Lumenera remain ever open to the brave and curious.</p>
+            <p>With the utmost regard,<br>The Lumenera Custodians</p>`
         );
 
         res.status(200).json({ message: 'Email sent successfully!' });

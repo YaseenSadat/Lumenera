@@ -166,7 +166,7 @@ const verifyStripe = async (req, res) => {
             await userModel.findByIdAndUpdate(userId, { cartData: {} });
 
             // Prepare and send a purchase confirmation email.
-            const productNames = order.items.map(item => `<strong>${item.name}</strong>`).join(", ");
+            const productNames = order.items.map(item => `<strong>${item.name} (${item.rarity}) x${item.quantity}</strong>`).join(", ");
             const productImages = order.items.map(item => {
                 let selectedImage;
                 switch (item.rarity) {
@@ -176,8 +176,8 @@ const verifyStripe = async (req, res) => {
                     case "Cursed": selectedImage = item.image[3]; break;
                     default: selectedImage = ""; // Default fallback.
                 }
-                return `<img src="${selectedImage}" alt="${item.name}" style="max-width: 200px; margin: 5px;">`;
-            }).join("");
+                return new Array(item.quantity).fill(`<img src="${selectedImage}" alt="${item.name} (${item.rarity})" style="max-width: 200px; margin: 5px;">`).join(" ");
+            }).join("<hr>");
 
             await sendPurchaseEmail(
                 { body: { email: order.address.email, productNames, productImages } },
@@ -211,6 +211,7 @@ const allOrders = async (req, res) => {
         res.json({ success: false, message: error.message });
     }
 };
+
 
 /**
  * Fetches orders for a specific user.
