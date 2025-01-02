@@ -138,6 +138,7 @@ const ShopContextProvider = (props) => {
      * Displays an error notification if the request fails.
      */
     const getProductsData = async () => {
+        console.log("VITE_BACKEND_URL:", import.meta.env.VITE_BACKEND_URL);
         try {
             const response = await axios.get(`${backendUrl}/api/product/list`);
             if (response.data.success) {
