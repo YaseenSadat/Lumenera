@@ -32,7 +32,7 @@ import emailRouter from "./routes/emailRoute.js"; // Router for email-related op
 
 // App Configuration
 const app = express(); // Initialize the Express application.
-const port = process.env.PORT || 4000; // Define the port, default to 4000 if not set in environment variables.
+const PORT = process.env.PORT || 4000; // Define the port, default to 4000 if not set in environment variables.
 connectDB(); // Connect to the MongoDB database.
 connectCloudinary(); // Configure Cloudinary for file storage.
 
@@ -53,4 +53,6 @@ app.get('/', (req, res) => {
 });
 
 // Start the server
-app.listen(port, () => console.log('Server started on PORT: ' + port)); // Logs a message when the server starts.
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
