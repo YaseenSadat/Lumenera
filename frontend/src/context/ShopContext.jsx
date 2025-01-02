@@ -99,6 +99,7 @@ const ShopContextProvider = (props) => {
      * Reflects changes in local state and sends the update to the backend.
      */
     const updateQuantity = async (itemId, rarity, quantity) => {
+        console.log("VITE_BACKEND_URL:", import.meta.env.VITE_BACKEND_URL);
         let cartData = structuredClone(cartItems); // Clone cart data
         cartData[itemId][rarity] = quantity; // Update quantity for the item
 
@@ -138,6 +139,7 @@ const ShopContextProvider = (props) => {
      * Displays an error notification if the request fails.
      */
     const getProductsData = async () => {
+        console.log(import.meta.env);
         console.log("VITE_BACKEND_URL:", import.meta.env.VITE_BACKEND_URL);
         try {
             const response = await axios.get(`${backendUrl}/api/product/list`);
