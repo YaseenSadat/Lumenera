@@ -1,20 +1,33 @@
+/**
+ * Contact.jsx
+ * 
+ * This page represents the "Contact Us" section of the Lumenera application.
+ * It provides the company's contact information, outlines store policies, 
+ * and includes a newsletter subscription box to engage users further.
+ */
+
 import React from "react";
-import Title from "../components/Title";
-import { assets } from "../assets/assets";
-import NewsletterBox from "../components/NewsletterBox";
+import Title from "../components/Title"; // Title component for section headers
+import { assets } from "../assets/assets"; // Importing assets such as images
+import NewsletterBox from "../components/NewsletterBox"; // Newsletter subscription box component
 
 const Contact = () => {
   return (
     <div>
+      {/* Contact Us Section */}
       <div className="text-center text-2xl pt-10 border-t">
         <Title text1={"CONTACT"} text2={"US"} />
       </div>
+
+      {/* Contact Information */}
       <div className="my-10 flex flex-col justify-center md:flex-row gap-10 mb-28">
+        {/* Contact Image */}
         <img
           className="w-full md:max-w-[480px]"
           src={assets.contact_img}
-          alt=""
+          alt="Contact Us"
         />
+        {/* Contact Details */}
         <div className="flex flex-col justify-center items-start gap-6">
           <p className="marcellus-regular font-bold text-xl text-gray-600">
             Contact
@@ -25,9 +38,12 @@ const Contact = () => {
         </div>
       </div>
 
+      {/* Our Policy Section */}
       <div className="text-center text-2xl pt-10 border-t">
         <Title text1={"OUR"} text2={"POLICY"} />
       </div>
+
+      {/* Policy Content */}
       <div className="my-10 px-6 md:px-12 text-gray-500">
         <p className="marcellus-regular">
           At Lumenera Cards, we strive to provide a seamless and transparent
@@ -55,6 +71,7 @@ const Contact = () => {
         </p>
       </div>
 
+      {/* Newsletter Subscription */}
       <NewsletterBox />
     </div>
   );

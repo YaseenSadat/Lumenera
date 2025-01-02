@@ -1,3 +1,10 @@
+/**
+ * Title.jsx
+ * 
+ * This component renders a styled title for sections of the application.
+ * It takes two text inputs (`text1` and `text2`) and combines them with 
+ * custom styling, including a decorative line.
+ */
 import React from 'react'
 
 const Title = ({text1,text2}) => {

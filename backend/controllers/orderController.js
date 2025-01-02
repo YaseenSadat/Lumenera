@@ -7,7 +7,7 @@ import { sendPurchaseEmail } from "../controllers/emailController.js";
 // gateway init
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
-// placing orders using cash on del.
+// placing orders using cash on del. not in use anymore
 const placeOrder = async (req, res) => {
     try {
         const { userId, items, amount, address } = req.body;

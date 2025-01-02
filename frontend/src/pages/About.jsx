@@ -1,21 +1,35 @@
+/**
+ * About.jsx
+ * 
+ * This page represents the "About Us" section of the Lumenera application.
+ * It provides an overview of the company's mission, values, and unique selling points,
+ * as well as details about craftsmanship, authenticity, and community connection.
+ * The page concludes with a newsletter subscription box to keep users engaged.
+ */
+
 import React from "react";
-import Title from "../components/Title";
-import NewsletterBox from "../components/NewsletterBox";
-import { assets } from "../assets/assets";
+import Title from "../components/Title"; // Title component for section headers
+import NewsletterBox from "../components/NewsletterBox"; // Newsletter subscription box component
+import { assets } from "../assets/assets"; // Importing assets such as images
 
 const About = () => {
   return (
     <div>
+      {/* Header Section: About Us */}
       <div className="text-2xl text-center pt-8 border-t">
         <Title text1={"ABOUT"} text2={"US"} />
       </div>
 
+      {/* Main Content Section: About the Company */}
       <div className="my-10 flex flex-col md:flex-row gap-16">
+        {/* Company Image */}
         <img
           className="w-full md:max-w-[450px]"
           src={assets.about_img}
-          alt=""
+          alt="About Lumenera"
         />
+
+        {/* About Us Text Content */}
         <div className="flex flex-col justify-center gap-6 md:w-2/4 text-gray-600">
           <p className="marcellus-regular">
             At Lumenera, we bring together players and collectors to immerse
@@ -34,6 +48,8 @@ const About = () => {
             card is more than just a game piece—it’s a work of art crafted with
             passion.
           </p>
+
+          {/* Mission Statement */}
           <b className="marcellus-bold text-gray-800">Our Mission</b>
           <p className="marcellus-regular">
             At Lumenera, our mission is to create a community-driven platform
@@ -47,10 +63,13 @@ const About = () => {
         </div>
       </div>
 
+      {/* Section: Why Choose Us */}
       <div className="text-xl py-4">
         <Title text1={"WHY"} text2={"CHOOSE US?"} />
       </div>
+
       <div className="flex flex-col md:flex-row text-sm mb-20">
+        {/* Craftsmanship Card */}
         <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
           <b className="marcellus-bold">Craftsmanship:</b>
           <p className="marcellus-regular text-gray-600">
@@ -62,6 +81,8 @@ const About = () => {
             players and collectors alike.
           </p>
         </div>
+
+        {/* Authenticity Card */}
         <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
           <b className="marcellus-bold">Authenticity:</b>
           <p className="marcellus-regular text-gray-600">
@@ -72,6 +93,8 @@ const About = () => {
             of a story, a world, and a vision that can’t be found anywhere else.
           </p>
         </div>
+
+        {/* Community Connection Card */}
         <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
           <b className="marcellus-bold">Community Connection:</b>
           <p className="marcellus-regular text-gray-600">
@@ -85,6 +108,7 @@ const About = () => {
         </div>
       </div>
 
+      {/* Newsletter Subscription */}
       <NewsletterBox />
     </div>
   );

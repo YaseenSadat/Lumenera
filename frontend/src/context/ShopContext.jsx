@@ -1,114 +1,123 @@
-import { createContext, useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import axios from 'axios'
+/**
+ * ShopContext.jsx
+ * 
+ * This file defines the ShopContext and its provider component.
+ * It manages the global state of the application, including products, cart items,
+ * user authentication token, and search functionality. It also handles interactions
+ * with the backend for cart and product data.
+ */
 
+import { createContext, useEffect, useState } from "react";
+import { toast } from "react-toastify"; // For showing toast notifications
+import { useNavigate } from "react-router-dom"; // For navigation within the app
+import axios from 'axios'; // For making HTTP requests
+
+// Creating the ShopContext for global state management
 export const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
+    // Global application constants and state variables
+    const currency = '$'; // Currency symbol for the app
+    const backendUrl = import.meta.env.VITE_BACKEND_URL; // Backend base URL from environment variables
+    const [search, setSearch] = useState(''); // Search query state
+    const [showSearch] = useState(false); // Toggle visibility of search input
+    const [cartItems, setCartItems] = useState({}); // Stores items in the user's cart
+    const [products, setProducts] = useState([]); // List of products fetched from backend
+    const [token, setToken] = useState(''); // User authentication token
+    const navigate = useNavigate(); // Navigation helper
 
-    const currency = '$';
-    const backendUrl = import.meta.env.VITE_BACKEND_URL
-    const [search, setSearch] = useState('');
-    const [showSearch, setShowSearch] = useState(false);
-    const [cartItems, setCartItems] = useState({});
-    const [products,setProducts] = useState([]);
-    const [token,setToken] = useState('');
-    const navigate = useNavigate();
-
-
+    /**
+     * Adds a product to the cart with specified rarity.
+     * Validates the product and rarity, updates local state,
+     * and sends the cart update to the backend if authenticated.
+     */
     const addToCart = async (itemId, rarity) => {
         if (!rarity) {
             toast.error('Select Product Rarity');
             return;
         }
-        
-        // Clone cart data to avoid direct mutation
-        let cartData = structuredClone(cartItems);
-        
-        // Find the product data for the given itemId
-        const productData = products.find(product => product._id === itemId);
-        
+
+        let cartData = structuredClone(cartItems); // Clone current cart state
+        const productData = products.find(product => product._id === itemId); // Find product details
+
         if (!productData) {
             toast.error("Product not found");
             return;
         }
-        
-        // Get available stock for the selected rarity
-        const availableStock = productData.rarities[rarity];
-        
-        // Check if the item is already in the cart
+
+        const availableStock = productData.rarities[rarity]; // Check stock for the selected rarity
+
         if (cartData[itemId]) {
-            // Check if the specific rarity exists in the cart for this item
             if (cartData[itemId][rarity] !== undefined) {
-                // Check if there is enough stock to increase the quantity
                 if (cartData[itemId][rarity] + 1 <= availableStock) {
-                    cartData[itemId][rarity] += 1; // Increment the quantity by 1
+                    cartData[itemId][rarity] += 1; // Increment quantity
                 } else {
                     toast.error("Insufficient stock for this product.");
                     return;
                 }
             } else {
-                // If rarity is not yet in the cart, initialize it with quantity 1
-                cartData[itemId][rarity] = 1;
+                cartData[itemId][rarity] = 1; // Add new rarity to cart
             }
         } else {
-            // If the item is not in the cart, initialize it with the selected rarity and quantity 1
-            cartData[itemId] = {};
-            cartData[itemId][rarity] = 1;
+            cartData[itemId] = { [rarity]: 1 }; // Add new item with rarity
         }
-        
-        // Update the cart state with the new data
-        setCartItems(cartData);
-        
-        // If there's a valid token, send the request to the backend
+
+        setCartItems(cartData); // Update cart state
+
         if (token) {
             try {
-                await axios.post(backendUrl + '/api/cart/add', { itemId, rarity }, { headers: { token } });
+                await axios.post(`${backendUrl}/api/cart/add`, { itemId, rarity }, { headers: { token } });
             } catch (error) {
                 console.log(error);
                 toast.error(error.message);
             }
         }
-        
     };
-    
 
-    const getCartCount =() => {
+    /**
+     * Calculates the total number of items in the cart.
+     * Iterates through cart data and sums up the quantities.
+     */
+    const getCartCount = () => {
         let totalCount = 0;
-        for(const items in cartItems){
-            for(const item in cartItems[items]){
+        for (const items in cartItems) {
+            for (const item in cartItems[items]) {
                 try {
                     if (cartItems[items][item] > 0) {
                         totalCount += cartItems[items][item];
                     }
                 } catch (error) {
-                    
+                    console.error(error);
                 }
             }
         }
         return totalCount;
-    }
+    };
 
+    /**
+     * Updates the quantity of a specific item in the cart.
+     * Reflects changes in local state and sends the update to the backend.
+     */
     const updateQuantity = async (itemId, rarity, quantity) => {
-        let cartData = structuredClone(cartItems); 
+        let cartData = structuredClone(cartItems); // Clone cart data
+        cartData[itemId][rarity] = quantity; // Update quantity for the item
 
-        cartData[itemId][rarity] = quantity;
-
-        setCartItems(cartData);
+        setCartItems(cartData); // Update cart state
 
         if (token) {
             try {
-
-                await axios.post(backendUrl + '/api/cart/update', {itemId, rarity, quantity}, {headers:{token}})
-
+                await axios.post(`${backendUrl}/api/cart/update`, { itemId, rarity, quantity }, { headers: { token } });
             } catch (error) {
                 console.log(error);
-                toast.error(error.message)
+                toast.error(error.message);
             }
         }
-    }
+    };
 
+    /**
+     * Calculates the total cost of items in the cart.
+     * Uses product data and cart quantities to compute the total.
+     */
     const getCartAmount = () => {
         let totalAmount = 0;
         for (const itemId in cartItems) {
@@ -123,54 +132,60 @@ const ShopContextProvider = (props) => {
         }
         return totalAmount;
     };
-    
+
+    /**
+     * Fetches the list of products from the backend and updates the state.
+     * Displays an error notification if the request fails.
+     */
     const getProductsData = async () => {
         try {
             const response = await axios.get(`${backendUrl}/api/product/list`);
-            if(response.data.success){
-                setProducts(response.data.products)
-            }
-            else{
-                toast.error(response.data.message)
+            if (response.data.success) {
+                setProducts(response.data.products);
+            } else {
+                toast.error(response.data.message);
             }
         } catch (error) {
             console.error(error);
-            toast.error(error.message)
+            toast.error(error.message);
         }
     };
 
+    /**
+     * Fetches the user's cart data from the backend and updates the cart state.
+     */
     const getUserCart = async (token) => {
         try {
-            const response = await axios.post(backendUrl + '/api/cart/get', {}, {headers:{token}})
+            const response = await axios.post(`${backendUrl}/api/cart/get`, {}, { headers: { token } });
             if (response.data.success) {
-                setCartItems(response.data.cartData)
+                setCartItems(response.data.cartData);
             }
         } catch (error) {
             console.error(error);
-            toast.error(error.message)
+            toast.error(error.message);
         }
-    }
-    
+    };
 
-    useEffect(()=>{
-        getProductsData()
-    },[])
+    // Fetch product data on component mount
+    useEffect(() => {
+        getProductsData();
+    }, []);
 
-    useEffect(()=>{
+    // Retrieve token from localStorage and fetch user cart on load
+    useEffect(() => {
         if (!token && localStorage.getItem('token')) {
-            setToken(localStorage.getItem('token'))
-            getUserCart(localStorage.getItem('token'))
+            setToken(localStorage.getItem('token'));
+            getUserCart(localStorage.getItem('token'));
         }
-    },[])
-    
+    }, []);
 
+    // Provide context value to children
     const value = {
         products,
         currency,
         search,
         setSearch,
         showSearch,
-        setShowSearch,
         cartItems,
         addToCart,
         setCartItems,
@@ -182,15 +197,12 @@ const ShopContextProvider = (props) => {
         setToken,
         token,
     };
-    
-    
 
     return (
         <ShopContext.Provider value={value}>
             {props.children}
         </ShopContext.Provider>
-    )
-
-}
+    );
+};
 
 export default ShopContextProvider;

@@ -1,14 +1,28 @@
+/**
+ * PlaceOrder.jsx
+ * 
+ * This page handles the order placement process. It collects user delivery 
+ * information, calculates the order total, and integrates with a payment gateway 
+ * (e.g., Stripe) to process the payment. The form validates required fields and 
+ * handles submission securely.
+ */
+
 import React, { useContext, useState } from 'react';
-import Title from '../components/Title';
-import CartTotal from '../components/CartTotal';
-import { assets } from '../assets/assets';
-import { ShopContext } from '../context/ShopContext';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import Title from '../components/Title'; // Component for section titles
+import CartTotal from '../components/CartTotal'; // Component for displaying cart totals
+import { assets } from '../assets/assets'; // Importing assets such as images
+import { ShopContext } from '../context/ShopContext'; // Global state context
+import axios from 'axios'; // For making HTTP requests
+import { toast } from 'react-toastify'; // For displaying notifications
 
 const PlaceOrder = () => {
-  const [method, setMethod] = useState('cod');
-  const { navigate, backendUrl, token, cartItems, setCartItems, products, getCartAmount } = useContext(ShopContext);
+  // State for managing the selected payment method
+  const [method, setMethod] = useState('stripe');
+
+  // Accessing global state and helper methods
+  const { backendUrl, token, cartItems, products, getCartAmount } = useContext(ShopContext);
+
+  // State for managing form input values
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -21,17 +35,23 @@ const PlaceOrder = () => {
     phone: '',
   });
 
+  /**
+   * Handles input changes and updates the corresponding field in `formData`.
+   */
   const onChangeHandler = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-
+    const { name, value } = event.target;
     setFormData((data) => ({ ...data, [name]: value }));
   };
 
+  /**
+   * Handles form submission, validates inputs, and sends the order data to the backend.
+   * Integrates with the payment gateway (e.g., Stripe) to process payments.
+   */
   const onSubmitHandler = async (event) => {
-    event.preventDefault();
+    event.preventDefault(); // Prevent default form submission behavior
+
     try {
-      // Prepare orderItems and orderData
+      // Prepare order items by processing the cart items
       let orderItems = [];
       for (const items in cartItems) {
         for (const item in cartItems[items]) {
@@ -46,53 +66,49 @@ const PlaceOrder = () => {
         }
       }
 
+      // Create order data object
       const orderData = {
         address: formData,
         items: orderItems,
-        amount: getCartAmount()
+        amount: getCartAmount(),
       };
 
+      // Handle payment processing based on the selected method
       switch (method) {
-        case 'cod':
-          const response = await axios.post(backendUrl + '/api/order/place', orderData, { headers: { token } });
-          if (response.data.success) {
-            setCartItems({}); // Clear the cart in the context
-            localStorage.removeItem('cart'); // If using localStorage to persist cart data
-            navigate('/orders');
-          } else {
-            toast.error(response.data.message);
-          }
-          break;
-
-        case 'stripe':
-          const responseStripe = await axios.post(backendUrl + '/api/order/stripe', orderData, { headers: { token } });
+        case 'stripe': {
+          const responseStripe = await axios.post(`${backendUrl}/api/order/stripe`, orderData, {
+            headers: { token },
+          });
           if (responseStripe.data.success) {
             const { session_url } = responseStripe.data;
-            window.location.replace(session_url);
+            window.location.replace(session_url); // Redirect to Stripe session
           } else {
             toast.error(responseStripe.data.message);
           }
           break;
-
+        }
         default:
           break;
       }
     } catch (error) {
-      console.log(error);
-      toast.error(error.message);
+      console.error('Error placing order:', error);
+      toast.error('An error occurred while placing your order. Please try again.');
     }
   };
 
   return (
+    // Form layout for order placement
     <form
       onSubmit={onSubmitHandler}
       className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t"
     >
-      {/* Left Side */}
+      {/* Left Side: Delivery Information */}
       <div className="flex flex-col gap-4 w-full sm:max-w-[480px]">
         <div className="text-xl sm:text-2xl my-3">
           <Title text1={'DELIVERY'} text2={'INFORMATION'} />
         </div>
+
+        {/* Input fields for delivery details */}
         <div className="flex gap-3">
           <input
             required
@@ -185,14 +201,13 @@ const PlaceOrder = () => {
         </p>
       </div>
 
-      {/* Right Side */}
+      {/* Right Side: Cart Total and Payment Method */}
       <div className="mt-8">
         <div className="mt-8 min-w-80">
           <CartTotal />
         </div>
         <div className="mt-12">
           <Title text1={'PAYMENT'} text2={'METHOD'} />
-          {/* Payment Method Selection */}
           <div className="flex gap-3 flex-col lg:flex-row">
             <div
               onClick={() => setMethod('stripe')}
@@ -203,20 +218,7 @@ const PlaceOrder = () => {
                   method === 'stripe' ? 'bg-green-400' : ''
                 }`}
               ></p>
-              <img className="h-5 mx-4" src={assets.stripe_logo} alt="" />
-            </div>
-            <div
-              onClick={() => setMethod('cod')}
-              className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
-            >
-              <p
-                className={`min-w-3.5 h-3.5 border rounded-full ${
-                  method === 'cod' ? 'bg-green-400' : ''
-                }`}
-              ></p>
-              <p className="marcellus-regular text-gray-500 text-sm font-medium mx-4">
-                Cash on Delivery
-              </p>
+              <img className="h-5 mx-4" src={assets.stripe_logo} alt="Stripe" />
             </div>
           </div>
           <div className="w-full text-end mt-8">
