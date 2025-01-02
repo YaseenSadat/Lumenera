@@ -1,11 +1,3 @@
-/**
- * mongodb.js
- * 
- * This module handles the connection to the MongoDB database using Mongoose.
- * It establishes the connection to the specified database and listens for 
- * connection events to confirm successful connection.
- */
-
 import mongoose from "mongoose"; // Importing Mongoose for database interaction
 
 /**
@@ -20,10 +12,7 @@ const connectDB = async () => {
     });
 
     // Connect to the database using the connection URI from environment variables
-    await mongoose.connect(`${process.env.MONGODB_URI}/e-commerce`, {
-        useNewUrlParser: true, // Ensures the use of the new MongoDB connection string parser
-        useUnifiedTopology: true, // Uses the unified topology engine for better performance
-    });
+    await mongoose.connect(`${process.env.MONGODB_URI}/e-commerce`);
 };
 
 export default connectDB;
