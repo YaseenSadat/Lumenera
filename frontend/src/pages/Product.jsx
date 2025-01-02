@@ -77,14 +77,16 @@ const Product = () => {
             <p className='marcellus-regular'>Select Rarity</p>
             <div className='flex gap-2'>
               {productData.rarities && Object.entries(productData.rarities).map(([rarityKey, stock], index) => {
-                const displayRarities = {
-                  Gold: ['Standard', 'Runed', 'Sacred', 'Cursed'],
-                  Silver: ['Standard', 'Runed'],
-                  Bronze: ['Standard'],
-                };
+                const displayRarities = productData.subCategory === 'Item'
+                  ? ['Standard'] // Only allow 'Standard' for 'Item' SubCategory
+                  : {
+                    Gold: ['Standard', 'Runed', 'Sacred', 'Cursed'],
+                    Silver: ['Standard', 'Runed'],
+                    Bronze: ['Standard'],
+                  }[productData.category] || [];
 
                 // Ensure the rarity is applicable for the product category
-                if (!displayRarities[productData.category].includes(rarityKey)) return null;
+                if (!displayRarities.includes(rarityKey)) return null;
 
                 return (
                   <button
