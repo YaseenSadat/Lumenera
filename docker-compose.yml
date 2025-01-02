@@ -14,6 +14,8 @@ services:
   frontend:
     build:
       context: ./frontend
+      args:
+        - VITE_BACKEND_URL=https://lumenera-backend.onrender.com
     ports:
       - "5173:80"
     environment:
@@ -25,6 +27,8 @@ services:
   admin:
     build:
       context: ./admin
+      args:
+        - VITE_BACKEND_URL=https://lumenera-backend.onrender.com
     ports:
       - "5174:80"
     environment:
