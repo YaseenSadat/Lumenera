@@ -49,7 +49,7 @@ const ShopContextProvider = (props) => {
 
         if (cartData[itemId]) {
             if (cartData[itemId][rarity] !== undefined) {
-                if (cartData[itemId][rarity] + 1 <= availableStock) {
+                if (cartData[itemId][rarity] + 1 <= availableStock && cartData[itemId][rarity] !== 0) {
                     cartData[itemId][rarity] += 1; // Increment quantity
                 } else {
                     toast.error("Insufficient stock for this product.");

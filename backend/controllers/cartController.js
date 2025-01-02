@@ -14,7 +14,9 @@ const addToCart = async (req,res) => {
                 cartData[itemId][rarity] += 1
             }
             else{
-                cartData[itemId][rarity] = 1
+                if (cartData[itemId][rarity] !== 0) {
+                    cartData[itemId][rarity] = 1
+                }
             }
         } else {
             cartData[itemId] = {}
