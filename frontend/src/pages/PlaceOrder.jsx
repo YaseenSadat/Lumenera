@@ -227,8 +227,8 @@ const PlaceOrder = () => {
             >
               PLACE ORDER
             </button>
-            <p className="text-xs text-gray-500 mt-2">
-              *Ensure you are logged in before placing your order
+            <p className="marcellus-regular text-xs text-gray-500 mt-2">
+              *Must be logged in to order
             </p>
           </div>
         </div>
