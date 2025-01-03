@@ -86,7 +86,7 @@ const Footer = () => {
             <div>
                 <hr /> {/* Divider line */}
                 <p className="marcellus-regular py-5 text-sm text-center">
-                    Copyright 2024 @Lumenera.com - All Rights Reserved
+                    Copyright 2024 @lumenera.onrender..com - All Rights Reserved
                 </p>
             </div>
         </div>
