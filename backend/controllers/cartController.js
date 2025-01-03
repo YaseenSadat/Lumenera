@@ -57,9 +57,26 @@ const updateCart = async (req, res) => {
         // Fetch the user's cart data
         const userData = await userModel.findById(userId);
         let cartData = await userData.cartData;
+        
+        if (!userId) {
+            return res.status(400).json({ success: false, message: "User ID is required" });
+        }
 
-        // Update the quantity for the specified item and rarity
-        cartData[itemId][rarity] = quantity;
+        if (itemId === null && rarity === null) {
+            // Clear the entire cart
+            cartData = {};        
+        } else if (quantity === 0) {
+            // Remove the rarity if the quantity is zero
+            delete cartData[itemId][rarity];
+
+            // If no rarities are left for the item, remove the item entirely
+            if (Object.keys(cartData[itemId]).length === 0) {
+                delete cartData[itemId];
+            }
+        } else {
+            // Update the quantity for the specified item and rarity
+            cartData[itemId][rarity] = quantity;
+        }
 
         // Save the updated cart data to the database
         await userModel.findByIdAndUpdate(userId, { cartData });

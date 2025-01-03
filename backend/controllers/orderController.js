@@ -20,6 +20,8 @@ import userModel from "../models/userModel.js"; // Model for user-related data.
 import Stripe from 'stripe'; // Stripe library for payment integration.
 import productModel from "../models/productModel.js"; // Model for product-related data.
 import { sendPurchaseEmail } from "../controllers/emailController.js"; // Email service for sending purchase confirmation emails.
+import { log } from "console";
+import { loadavg } from "os";
 
 // Gateway initialization with Stripe API key.
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
