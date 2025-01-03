@@ -26,7 +26,7 @@ const authUser = async (req, res, next) => {
 
     // Check if the token is missing.
     if (!token) {
-        return res.json({ success: false, message: 'Not Authorized. Login Again.' });
+        return res.json({ success: false, message: 'Not Authorized. Login or Create Account.' });
     }
 
     try {
