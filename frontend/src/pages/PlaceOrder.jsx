@@ -214,9 +214,8 @@ const PlaceOrder = () => {
               className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
             >
               <p
-                className={`min-w-3.5 h-3.5 border rounded-full ${
-                  method === 'stripe' ? 'bg-green-400' : ''
-                }`}
+                className={`min-w-3.5 h-3.5 border rounded-full ${method === 'stripe' ? 'bg-green-400' : ''
+                  }`}
               ></p>
               <img className="h-5 mx-4" src={assets.stripe_logo} alt="Stripe" />
             </div>
@@ -228,10 +227,14 @@ const PlaceOrder = () => {
             >
               PLACE ORDER
             </button>
+            <p className="text-xs text-gray-500 mt-2">
+              *Ensure you are logged in before placing your order
+            </p>
           </div>
         </div>
       </div>
     </form>
+
   );
 };
 
