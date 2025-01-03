@@ -16,7 +16,8 @@ Check out the code on GitHub: [Lumenera](https://github.com/YaseenSadat/Lumenera
 1. [Creators](#creators)
 2. [Summary](#summary)
 3. [Features](#features)
-4. [Feedback](#feedback)
+4. [Technology](#technology)
+5. [Feedback](#feedback)
 
 ---
 ## Creators
@@ -116,7 +117,43 @@ Lumenera is engineered with cutting-edge technologies to ensure a robust, scalab
 - Every card in Lumenera is a masterpiece, meticulously designed to capture the essence of its rich and immersive dark fantasy world. From intricate illustrations to compelling narratives, each card tells a story that sparks imagination and fuels the spirit of competition.  
 - Exclusive and unparalleled, Lumenera’s designs are 100% authentic, crafted with passion and precision to captivate collectors and players alike. Holding a Lumenera card isn’t just about gameplay—it’s about experiencing a unique blend of art and storytelling that elevates the trading card experience to an entirely new level.  
 
+---
 
+## Technology
+
+Lumenera is built using a powerful and modern technology stack to ensure efficiency, scalability, and an immersive user experience. Here's a clear breakdown:  
+
+### Languages  
+- **JavaScript**: Core programming language for both the frontend and backend, enabling dynamic and interactive features.  
+
+### Frameworks  
+- **React**: Drives the responsive and visually engaging frontend.  
+- **Node.js**: Handles backend operations and server-side logic.  
+- **Express.js**: Simplifies API development and server setup with robust middleware support.  
+- **Tailwind CSS**: Ensures responsive, consistent, and aesthetic designs that reflect Lumenera’s dark fantasy theme.
+ 
+
+### Libraries  
+- **react-router-dom**: Powers seamless navigation between pages.  
+- **axios**: Facilitates efficient HTTP requests to backend APIs.  
+- **react-toastify**: Provides non-intrusive real-time notifications.  
+
+### Tools  
+- **Nodemailer**: Sends secure and automated emails for subscriptions, purchases, and password resets.  
+- **Stripe**: Processes payments securely, including service fee handling.  
+- **JWT (JSON Web Tokens)**: Enables secure token-based authentication for users and admins.  
+- **Docker**: Ensures consistent environments and smooth deployments via containerization.  
+- **Postman**: Used for testing and validating APIs during development.  
+- **bcrypt**: Hashes passwords for robust user security.  
+- **multer**: Manages file uploads for seamless product management.  
+- **Cloudinary**: Stores and retrieves images dynamically, enhancing product displays.  
+- **Cors**: Handles cross-origin requests securely.  
+- **validator**: Verifies email formats during user registration to prevent errors.  
+- **Nodemon**: Speeds up development by automatically restarting the server on code changes.  
+
+
+### Database  
+- **MongoDB**: A NoSQL database used to dynamically manage data for users, products, and orders.  
 
 ---
 
