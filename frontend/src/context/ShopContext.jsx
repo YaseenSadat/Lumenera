@@ -49,9 +49,12 @@ const ShopContextProvider = (props) => {
 
         if (cartData[itemId]) {
             if (cartData[itemId][rarity] !== undefined) {
-                if (cartData[itemId][rarity] + 1 <= availableStock && cartData[itemId][rarity] !== 0) {
+                if (cartData[itemId][rarity] + 1 <= availableStock) {
                     cartData[itemId][rarity] += 1; // Increment quantity
                 } else {
+                    console.log(cartData[itemId][rarity]);
+                    console.log('availabe:' + availableStock);
+                    
                     toast.error("Insufficient stock for this product.");
                     return;
                 }
@@ -99,7 +102,6 @@ const ShopContextProvider = (props) => {
      * Reflects changes in local state and sends the update to the backend.
      */
     const updateQuantity = async (itemId, rarity, quantity) => {
-        console.log("VITE_BACKEND_URL:", import.meta.env.VITE_BACKEND_URL);
         let cartData = structuredClone(cartItems); // Clone cart data
         cartData[itemId][rarity] = quantity; // Update quantity for the item
 
@@ -139,8 +141,6 @@ const ShopContextProvider = (props) => {
      * Displays an error notification if the request fails.
      */
     const getProductsData = async () => {
-        console.log(import.meta.env);
-        console.log("VITE_BACKEND_URL:", import.meta.env.VITE_BACKEND_URL);
         try {
             const response = await axios.get(`${backendUrl}/api/product/list`);
             if (response.data.success) {

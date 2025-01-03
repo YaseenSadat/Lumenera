@@ -11,9 +11,7 @@ const connectDB = async () => {
         console.log("DB Connected"); // Logs a confirmation message on successful connection
     });
 
-    // Connect to the database using the connection URI from environment variables
-    console.log(process.env.MONGODB_URI);
-    
+    // Connect to the database using the connection URI from environment variables    
     await mongoose.connect(`${process.env.MONGODB_URI}/e-commerce`);
 };
 

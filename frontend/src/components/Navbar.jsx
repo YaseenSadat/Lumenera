@@ -10,24 +10,48 @@ import React, { useContext, useState } from 'react';
 import { assets } from '../assets/assets'; // Importing assets such as icons and logos
 import { Link, NavLink } from 'react-router-dom'; // For navigation between routes
 import { ShopContext } from '../context/ShopContext'; // Importing global state context
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const Navbar = () => {
   // State to control the visibility of the mobile sidebar menu
   const [visible, setVisible] = useState(false);
 
   // Destructuring required context methods and variables
-  const { getCartCount, navigate, token, setToken, setCartItems } = useContext(ShopContext);
+  const { getCartCount, navigate, token, setToken, setCartItems, backendUrl } = useContext(ShopContext);
 
   /**
    * Handles user logout by clearing the token, resetting the cart, 
    * and redirecting the user to the login page.
    */
-  const logout = () => {
-    navigate('/login'); // Navigate to login page
-    localStorage.removeItem('token'); // Remove token from localStorage
-    setToken(''); // Reset token in context
-    setCartItems({}); // Clear cart items
+  const logout = async () => {
+    if (token) {
+      try {
+        
+        // Send request to clear the cart        
+        await axios.post(
+          `${backendUrl}/api/cart/update`,
+          { userId: localStorage.getItem('userId'), itemId: null, rarity: null, quantity: 0 },
+          { headers: { token } }
+        );
+
+        // Reset the cart in local state and context
+        setCartItems({});
+
+        // Clear user authentication
+        localStorage.removeItem('token'); // Remove token from localStorage
+        setToken(''); // Reset token in context
+
+        // Redirect to the login page
+        navigate('/login');
+      } catch (error) {
+        console.error(error);
+        toast.error("Failed to log out. Please try again.");
+      }
+    }
   };
+
+
 
   return (
     <div className='flex items-center justify-between py-5 font-medium'>
