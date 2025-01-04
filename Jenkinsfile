@@ -9,15 +9,16 @@ pipeline {
             }
             steps {
                 dir('backend') {
+                    // Clean existing dependencies in Jenkins workspace
+                    sh 'rm -rf node_modules package-lock.json'
+                    // Install fresh dependencies
                     sh 'npm install'
-                    sh 'npm test' // No need for manual export if dotenv is used
+                    // Rebuild bcrypt for the Docker environment
+                    sh 'npm rebuild bcrypt'
+                    // Run tests
+                    sh 'npm test'
                 }
             }
-        }
-    }
-    post {
-        always {
-            archiveArtifacts artifacts: 'backend/test-results/results.xml', onlyIfSuccessful: false
         }
     }
 }
