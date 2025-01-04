@@ -3,8 +3,5 @@ module.exports = {
     reporters: [
         'default',
         ['jest-junit', { outputDirectory: './test-results', outputName: 'results.xml' }]
-    ],
-    transform: {
-        '^.+\\.jsx?$': 'babel-jest'
-    }
+    ]
 };

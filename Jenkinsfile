@@ -1,32 +1,23 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:18' // Use the same Node.js version as your backend
-        }
-    }
-    environment {
-        NODE_ENV = 'test'
-    }
+    agent any
     stages {
-        stage('Checkout Code') {
-            steps {
-                checkout scm
+        stage('Setup Docker Environment') {
+            agent {
+                docker {
+                    image 'node:18' // Use Node.js Docker image
+                }
             }
-        }
-        stage('Install Dependencies') {
             steps {
-                sh 'npm install'
-            }
-        }
-        stage('Run Tests') {
-            steps {
-                sh 'npm test'
+                dir('backend') { // Navigate to the backend directory
+                    sh 'npm install'
+                    sh 'npm test'
+                }
             }
         }
     }
     post {
         always {
-            junit '**/test-results/results.xml' // Ensure Jest outputs results in this path
+            archiveArtifacts artifacts: 'backend/test-results/results.xml', onlyIfSuccessful: false
         }
     }
 }
