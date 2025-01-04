@@ -1,3 +1,4 @@
+require('dotenv').config();
 import request from "supertest";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt"; // Import bcrypt to hash the password
