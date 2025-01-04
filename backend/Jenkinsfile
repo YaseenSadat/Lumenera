@@ -1,37 +1,21 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout Code') {
-            steps {
-                // Clone the repository
-                git branch: 'main', url: 'https://github.com/YaseenSadat/Lumenera'
-            }
-        }
         stage('Install Dependencies') {
+            agent {
+                docker { image 'node:16' }
+            }
             steps {
-                // Install project dependencies
                 sh 'npm install'
             }
         }
         stage('Run Tests') {
+            agent {
+                docker { image 'node:16' }
+            }
             steps {
-                // Run tests in the test environment
                 sh 'NODE_ENV=test npm test'
             }
-        }
-    }
-    post {
-        always {
-            // Always show test results
-            echo 'Pipeline completed'
-        }
-        success {
-            // Actions for a successful build
-            echo 'Build was successful!'
-        }
-        failure {
-            // Actions for a failed build
-            echo 'Build failed. Check logs for details.'
         }
     }
 }
