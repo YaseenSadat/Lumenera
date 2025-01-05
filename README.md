@@ -107,11 +107,10 @@ Empower administrators with a dedicated, secure, and fully-featured admin dashbo
 
 ### 🛡️ Built for Scalability and Security  
 Lumenera is engineered with cutting-edge technologies to ensure a robust, scalable, and secure platform capable of growing alongside its user base:  
-
 - **Seamless Docker Integration**: Lumenera leverages **Docker** for containerization, guaranteeing consistent environments across all stages of development, testing, and deployment. This approach minimizes errors, enhances portability, and ensures the platform runs smoothly, no matter where it’s hosted.  
-- **CI/CD Pipeline Excellence**: With an automated **CI/CD pipeline**, Lumenera takes updates and deployments to the next level. Every code change undergoes rigorous testing and validation, ensuring seamless rollouts of new features, patches, and improvements with zero downtime. This system not only accelerates development cycles but also maintains the platform’s reliability.  
+- **CI/CD Pipeline Excellence with Jenkins**: Lumenera utilizes **Jenkins** to power its **CI/CD pipelines**, automating integration tests and deployments. Every code change is subjected to rigorous automated testing, ensuring that new features, patches, and updates are rolled out seamlessly and reliably. Jenkins streamlines the entire development lifecycle, reducing downtime and maintaining high platform reliability.  
 - **Powerful Render Hosting**: Deployed on **Render**, Lumenera enjoys high availability and unparalleled scalability. Render’s infrastructure ensures the platform can handle surges in user traffic effortlessly while maintaining optimal performance, providing a consistent and dependable user experience at all times.  
-- **Future-Proof Architecture**: The combination of containerization, automated pipelines, and scalable hosting ensures Lumenera remains adaptable and ready to meet evolving user demands and technological advancements.  
+- **Future-Proof Architecture**: The combination of containerization, automated pipelines via Jenkins, and scalable hosting on Render ensures Lumenera remains adaptable and ready to meet evolving user demands and technological advancements.  
 
 ### 🎨 Craftsmanship and Authenticity  
 - Every card in Lumenera is a masterpiece, meticulously designed to capture the essence of its rich and immersive dark fantasy world. From intricate illustrations to compelling narratives, each card tells a story that sparks imagination and fuels the spirit of competition.  
@@ -131,6 +130,7 @@ Lumenera is built using a powerful and modern technology stack to ensure efficie
 - **Node.js**: Handles backend operations and server-side logic.  
 - **Express.js**: Simplifies API development and server setup with robust middleware support.  
 - **Tailwind CSS**: Ensures responsive, consistent, and aesthetic designs that reflect Lumenera’s dark fantasy theme.
+- **Jest**: Provides a comprehensive testing framework for ensuring the reliability and functionality of the application's features through unit and integration tests.
  
 
 ### Libraries  
@@ -150,7 +150,8 @@ Lumenera is built using a powerful and modern technology stack to ensure efficie
 - **Cors**: Handles cross-origin requests securely.  
 - **validator**: Verifies email formats during user registration to prevent errors.  
 - **Nodemon**: Speeds up development by automatically restarting the server on code changes.  
-
+- **Jenkins**: Facilitates continuous integration and deployment by automating integration testing, ensuring code changes are thoroughly tested and do not break existing functionality.
+- **Babel**: Transpiles modern JavaScript code into a backward-compatible version, ensuring broad compatibility across different browsers and environments.
 
 ### Database  
 - **MongoDB**: A NoSQL database used to dynamically manage data for users, products, and orders.  
