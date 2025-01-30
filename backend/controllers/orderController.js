@@ -22,6 +22,8 @@ import productModel from "../models/productModel.js"; // Model for product-relat
 import { sendPurchaseEmail } from "../controllers/emailController.js"; // Email service for sending purchase confirmation emails.
 import { log } from "console";
 import { loadavg } from "os";
+import { createJiraIssue } from '../config/jiraService.js';
+
 
 // Gateway initialization with Stripe API key.
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -134,6 +136,15 @@ const placeOrderStripe = async (req, res) => {
         res.json({ success: true, session_url: session.url });
     } catch (error) {
         console.log(error);
+        try {
+            await createJiraIssue({
+              summary: `Stripe Payment Error: Order placement failed for userId=${req.body.userId}`,
+              description: `Error details:\n${error.message}\n\nStack Trace:\n${error.stack}`,
+              issueType: 'Bug', // Use "Bug" as the issue type for payment failures
+            });
+          } catch (jiraError) {
+            console.error('Failed to create JIRA issue:', jiraError?.response?.data || jiraError.message);
+          }
         res.json({ success: false, message: error.message });
     }
 };
