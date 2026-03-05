@@ -25,8 +25,8 @@ import { loadavg } from "os";
 import { createJiraIssue } from '../config/jiraService.js';
 
 
-// Gateway initialization with Stripe API key.
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+// Gateway initialization with Stripe API key (lazy — avoids crash when key is absent in test env).
+const getStripe = () => new Stripe(process.env.STRIPE_SECRET_KEY);
 
 /**
  * Handles placing orders using cash on delivery.
@@ -125,7 +125,7 @@ const placeOrderStripe = async (req, res) => {
         });
 
         // Create a Stripe session for payment.
-        const session = await stripe.checkout.sessions.create({
+        const session = await getStripe().checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: line_items,
             mode: 'payment',
