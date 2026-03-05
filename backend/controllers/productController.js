@@ -16,6 +16,28 @@
 import { v2 as cloudinary } from "cloudinary"; // Cloudinary library for image uploads.
 import productModel from "../models/productModel.js"; // Product model for interacting with the database.
 
+// In-memory cache for product list (including Cloudinary image URLs).
+const productCache = {
+    data: null,
+    expiresAt: 0,
+    TTL_MS: 5 * 60 * 1000, // 5 minutes
+
+    get() {
+        if (this.data && Date.now() < this.expiresAt) return this.data;
+        return null;
+    },
+
+    set(data) {
+        this.data = data;
+        this.expiresAt = Date.now() + this.TTL_MS;
+    },
+
+    invalidate() {
+        this.data = null;
+        this.expiresAt = 0;
+    }
+};
+
 /**
  * Adds a new product to the database.
  * - Uploads multiple product images to Cloudinary.
@@ -70,6 +92,7 @@ const addProduct = async (req, res) => {
         // Save the new product to the database.
         const product = new productModel(productData);
         await product.save();
+        productCache.invalidate();
 
         res.json({ success: true, message: "Product Added" });
     } catch (error) {
@@ -86,7 +109,12 @@ const addProduct = async (req, res) => {
  */
 const listProducts = async (req, res) => {
     try {
+        const cached = productCache.get();
+        if (cached) {
+            return res.json({ success: true, products: cached });
+        }
         const products = await productModel.find({});
+        productCache.set(products);
         res.json({ success: true, products });
     } catch (error) {
         console.log(error);
@@ -103,6 +131,7 @@ const listProducts = async (req, res) => {
 const removeProduct = async (req, res) => {
     try {
         await productModel.findByIdAndDelete(req.body.id);
+        productCache.invalidate();
         res.json({ success: true, message: "Product Removed" });
     } catch (error) {
         console.log(error);

@@ -1,10 +1,16 @@
 pipeline {
     agent any
+    environment {
+        TEST_MONGODB_URI = credentials('TEST_MONGODB_URI')
+        JWT_SECRET       = credentials('JWT_SECRET')
+        NODE_ENV         = 'test'
+    }
     stages {
         stage('Install and Test') {
             agent {
                 docker {
                     image 'node:18' // Use Node.js Docker image
+                    reuseNode true  // Reuse workspace so env vars are accessible
                 }
             }
             steps {
