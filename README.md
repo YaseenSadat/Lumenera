@@ -3,9 +3,9 @@
 # Lumenera
 
 **Lumenera** is a Dark Fantasy Trading Card Platform designed to provide an interactive and engaging experience for players and collectors. It includes the following main features:
-This project is a full-stack e-commerce system built using the MERN stack, featuring MongoDB for data storage, Express.js and Node.js for backend services, and React with Tailwind CSS for a responsive frontend. It integrates with Stripe for secure payment processing and Cloudinary for dynamic file storage. The platform incorporates robust authentication mechanisms, including JWT token-based authentication, bcrypt for password hashing, and secure password reset functionalities with token validation and expiration. Deployed using Docker with a CI/CD pipeline and hosted on Render, Lumenera ensures scalability, reliability, and seamless updates, enabling users to browse, collect, and trade exclusive trading cards efficiently.
+This project is a full-stack e-commerce system built using the MERN stack, featuring MongoDB for data storage, Express.js and Node.js for backend services, and React with Tailwind CSS for a responsive frontend. It integrates with Stripe for secure payment processing and Cloudinary for dynamic file storage. The platform incorporates robust authentication mechanisms, including JWT token-based authentication, bcrypt for password hashing, and secure password reset functionalities with token validation and expiration. Deployed using Docker with a CI/CD pipeline and hosted on Render, Lumenera ran live in production, enabling users to browse, collect, and trade exclusive trading cards efficiently.
 
-Check out the project: [Lumenera](https://lumenera.onrender.com).
+> **Note:** Lumenera was live in production at lumenera.shop. The site has since been taken down, but the full source code remains available here.
 
 Check out the code on GitHub: [Lumenera](https://github.com/YaseenSadat/Lumenera).
 
@@ -110,8 +110,8 @@ Lumenera is engineered with cutting-edge technologies to ensure a robust, scalab
 - **Seamless Docker Integration**: Lumenera leverages **Docker** for containerization, guaranteeing consistent environments across all stages of development, testing, and deployment. This approach minimizes errors, enhances portability, and ensures the platform runs smoothly, no matter where it’s hosted.  
 - **CI/CD Pipeline Excellence with Jenkins**: Lumenera utilizes **Jenkins** to power its **CI/CD pipelines**, automating integration tests and deployments. Every code change is subjected to rigorous automated testing, ensuring that new features, patches, and updates are rolled out seamlessly and reliably. Jenkins streamlines the entire development lifecycle, reducing downtime and maintaining high platform reliability.  
 -**Automated Error Tracking with JIRA**: Lumenera integrates JIRA REST API to streamline issue tracking and bug resolution. Critical backend failures automatically generate detailed JIRA tickets, capturing error summaries and full stack traces for faster debugging. By reducing manual overhead and accelerating resolution times, this integration enhances development efficiency and ensures system reliability.
-- **Powerful Render Hosting**: Deployed on **Render**, Lumenera enjoys high availability and unparalleled scalability. Render’s infrastructure ensures the platform can handle surges in user traffic effortlessly while maintaining optimal performance, providing a consistent and dependable user experience at all times.  
-- **Future-Proof Architecture**: The combination of containerization, automated pipelines via Jenkins, and scalable hosting on Render ensures Lumenera remains adaptable and ready to meet evolving user demands and technological advancements.  
+- **Render Hosting**: While live, Lumenera was deployed on **Render**, giving it high availability and the scalability to handle surges in user traffic while maintaining optimal performance. The live deployment has since been taken down.  
+- **Future-Proof Architecture**: The combination of containerization, automated pipelines via Jenkins, and scalable hosting on Render kept Lumenera adaptable and ready for evolving user demands and technological advancements.  
 
 ### 🎨 Craftsmanship and Authenticity  
 - Every card in Lumenera is a masterpiece, meticulously designed to capture the essence of its rich and immersive dark fantasy world. From intricate illustrations to compelling narratives, each card tells a story that sparks imagination and fuels the spirit of competition.  
